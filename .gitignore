@@ -1,0 +1,7 @@
+gcc/log
+gcc/data/program_commitment.json
+gcc/data/program_param.json
+gcc/data/proof.json
+gcc/program
+gcc/program_new.s
+gcc/program.s
