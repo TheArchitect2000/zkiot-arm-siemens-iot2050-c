@@ -15,6 +15,7 @@
 #include <cstring>
 #include <sys/ioctl.h>
 #include <net/if.h>
+#include <vector>
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;
@@ -30,6 +31,56 @@ std::string MQTT_HOST = "";
 #define MQTT_QOS 0
 #define MQTT_RETAIN false
 
+// Base64 encoding table
+const std::string base64_chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz"
+    "0123456789+/";
+
+std::string base64_encode(const std::string &input) {
+    std::string encoded_string;
+    int i = 0;
+    int j = 0;
+    unsigned char char_array_3[3];
+    unsigned char char_array_4[4];
+
+    for (const auto &c : input) {
+        char_array_3[i++] = c;
+        if (i == 3) {
+            char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
+            char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
+            char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
+            char_array_4[3] = char_array_3[2] & 0x3f;
+
+            for (i = 0; i < 4; i++) {
+                encoded_string += base64_chars[char_array_4[i]];
+            }
+            i = 0;
+        }
+    }
+
+    if (i) {
+        for (j = i; j < 3; j++) {
+            char_array_3[j] = '\0';
+        }
+
+        char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
+        char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
+        char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
+        char_array_4[3] = char_array_3[2] & 0x3f;
+
+        for (j = 0; j < i + 1; j++) {
+            encoded_string += base64_chars[char_array_4[j]];
+        }
+
+        while (i++ < 3) {
+            encoded_string += '=';
+        }
+    }
+
+    return encoded_string;
+}
+
 /*std::vector<std::string> get_available_ports() {
     std::vector<std::string> ports;
     for (const auto &entry : fs::directory_iterator("/dev")) {
@@ -41,30 +92,6 @@ std::string MQTT_HOST = "";
     }
     return ports;
 }*/
-static const std::string base64_chars = 
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz"
-    "0123456789+/";
-
-std::string base64_encode(const std::string &input) {
-    std::string output;
-    int val = 0, valb = -6;
-    for (unsigned char c : input) {
-        val = (val << 8) + c;
-        valb += 8;
-        while (valb >= 0) {
-            output.push_back(base64_chars[(val >> valb) & 0x3F]);
-            valb -= 6;
-        }
-    }
-    if (valb > -6) {
-        output.push_back(base64_chars[((val << (6 + valb)) & 0x3F)]);
-    }
-    while (output.size() % 4) {
-        output.push_back('=');
-    }
-    return output;
-}
 
 std::string getMacAddress(const std::string& interface) {
     struct ifreq ifr;
@@ -249,7 +276,7 @@ int main() {
                         doc.clear();
                         doc["from"] = macBase64;
                         doc["to"] = MQTT_HOST;
-                        doc["data"]["Framware Version"] = "1.6";
+                        doc["data"]["Framware Version"] = "1.7";
                         doc["data"]["Hardware Version"] = "1";
                         doc["data"]["Root"] = true;
                         doc["data"]["Temperature"] = floatToStringOneDecimal(temperature) + " (°C)";
@@ -262,7 +289,7 @@ int main() {
                         doc.clear();
                         doc["from"] = macBase64;
                         doc["to"] = MQTT_HOST;
-                        doc["data"]["Framware Version"] = "1.6";
+                        doc["data"]["Framware Version"] = "1.7";
                         doc["data"]["Hardware Version"] = "1";
                         doc["data"]["Root"] = true;
                         doc["data"]["Temperature"] = floatToStringOneDecimal(temperature) + " (°C)";

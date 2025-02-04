@@ -3,9 +3,9 @@
   "iot_developer_name": "Fidesinnova",
   "iot_device_name": "Siemens_IOT2050",
   "device_hardware_version": "1.0",
-  "firmware_version": "1.6",
+  "firmware_version": "1.7",
   "code_block": [
-    19638,
-    19639
+    19723,
+    19724
   ]
 }
