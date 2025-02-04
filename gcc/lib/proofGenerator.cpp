@@ -802,7 +802,6 @@ extern "C" void proofGenerator() {
 
 
   ordered_json proof;
-  proof.clear();
   proof.clear(); 
   proof["commitment_id"] = commitmentID;
   // proof["iot_developer_name"] = IoT_Manufacturer_Name;
