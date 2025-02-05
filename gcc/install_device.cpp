@@ -1,6 +1,6 @@
 #include <iostream>
 #include <curl/curl.h>
-#include "gcc/lib/json.hpp"
+#include "lib/json.hpp"
 #include <algorithm>
 #include <string>
 #include <sys/ioctl.h>
@@ -133,7 +133,7 @@ bool install_device(const std::string& api_url) {
     CURL* curl;
     CURLcode res;
     
-    std::string json_data = "{\"deviceName\":\"Siemens IOT2050\", \"deviceType\":\"Siemens_IOT2050\", \"mac\":\"" + macAddress + "\", \"hardwareVersion\":1, \"firmwareVersion\":1, \"parameters\":[{\"title\":\"Temperature\",\"ui\":\"text\",\"unit\":\"°C\"},{\"title\":\"Humidity\",\"ui\":\"text\",\"unit\":\"%\"},{\"title\":\"Button\",\"ui\":\"text\",\"unit\":0}], \"isShared\":false}";
+    std::string json_data = "{\"deviceName\":\"Siemens IOT2050\", \"deviceType\":\"Siemens_IOT2050\", \"mac\":\"" + macAddress + "\", \"hardwareVersion\":1, \"firmwareVersion\":1, \"parameters\":[{\"title\":\"Temperature\",\"ui\":\"text\",\"unit\":0},{\"title\":\"Humidity\",\"ui\":\"text\",\"unit\":0},{\"title\":\"Button\",\"ui\":\"text\",\"unit\":0}], \"isShared\":false}";
     std::string readBuffer;
     
     // Construct the Authorization header
