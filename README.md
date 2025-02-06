@@ -22,5 +22,5 @@ chmod +x wizardry.sh
 ```
 or use it with `sudo`
 ```
-sudo ./wizardery.sh
+sudo ./wizardry.sh
 ```
