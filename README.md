@@ -20,7 +20,7 @@ chmod +x wizardry.sh
 ```
 ./wizardery.sh
 ```
-### or use it with `sudo`
+or use it with `sudo`
 ```
 sudo ./wizardery.sh
 ```
