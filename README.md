@@ -1,10 +1,23 @@
 # Siemens SIMATIC IOT2050
-- Install `tmux' package to manage terminal sessions.
+- Install git
+```
+apt install git
+```
+- Clone the project
+```
+git clone https://github.com/FidesInnova/Siemens_SIMATIC_IOT2050.git
+```
+
+- Install necessary libraries
+```
+sudo apt update && sudo apt install -y g++ libmosquitto-dev libmosquittopp-dev
+```
+- Install `tmux` package to manage terminal sessions.
 ```
 apt install tmux
 tmux new -s mysession
 ```
-- To re-attach to an exisitng terminal session, you can use this command.
+- You can use this command to re-attach to an existing terminal session.
 ```
 tmux attach -t mysession
 ```
@@ -16,7 +29,7 @@ chmod +x program
 chmod +x install_device
 chmod +x wizardry.sh
 ```
-- Execure the wizardery.sh script to register your IoT device on Fidesinnova platform, generate commitemnt, and geneate proof for sensors
+- Execute the wizardry.sh script to register your IoT device on the Fidesinnova platform, generate commitment, and generate proof for sensors
 ```
 ./wizardery.sh
 ```
