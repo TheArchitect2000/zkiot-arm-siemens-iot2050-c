@@ -23,12 +23,12 @@ tmux attach -t mysession
 ```
 - Pull this repository and run the following commands.
 ```
-cd IOT2050/gcc
-chmod +x commitmentGenerator
+cd zkiot-siemens-simatic-iot2050
+```
+<!---chmod +x commitmentGenerator
 chmod +x program
 chmod +x install_device
-chmod +x wizardry.sh
-```
+chmod +x wizardry.sh --->
 - Execute the wizardry.sh script to register your IoT device on the Fidesinnova platform, generate commitment, and generate proof for sensors
 ```
 ./wizardry.sh
