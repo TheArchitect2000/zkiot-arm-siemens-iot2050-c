@@ -31,7 +31,7 @@ chmod +x wizardry.sh
 ```
 - Execute the wizardry.sh script to register your IoT device on the Fidesinnova platform, generate commitment, and generate proof for sensors
 ```
-./wizardery.sh
+./wizardry.sh
 ```
 or use it with `sudo`
 ```
