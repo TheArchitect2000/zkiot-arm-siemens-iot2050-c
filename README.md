@@ -5,7 +5,7 @@ apt install git
 ```
 - Clone the project
 ```
-git clone https://github.com/FidesInnova/Siemens_SIMATIC_IOT2050.git
+git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
 ```
 
 - Install necessary libraries
