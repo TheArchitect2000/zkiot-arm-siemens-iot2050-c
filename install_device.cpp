@@ -218,72 +218,62 @@ int main() {
     //     std::cout << "MAC Address of " << interface << ": " << macAddress << std::endl;
     // }
 
-    // Initialize libcurl
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl = curl_easy_init();
+    
+    // Path to the local JSON file
+    std::string filePath = "data/nodes.json";
 
-    if (curl) {
-        // Set the URL for the API
-        curl_easy_setopt(curl, CURLOPT_URL, "https://fidesinnova.io/Download/nodes.json");
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+    // Read the file into a string
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file: " << filePath << std::endl;
+        return 1;
+    }
 
-        // Perform the request
-        res = curl_easy_perform(curl);
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string jsonData = buffer.str();
 
-        // Check for errors
-        if(res != CURLE_OK) {
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-        } else {
-            // Parse the JSON response using your library
-            try {
-                json nodes = json::parse(readBuffer);
-                std::cout << "Available nodes: " << std::endl;
+    // Parse the JSON data
+    try {
+        json nodes = json::parse(jsonData);
+        std::cout << "Available nodes: " << std::endl;
 
-                // List the node names
-                for (size_t i = 0; i < nodes.size(); ++i) {
-                    std::string nodeName = nodes[i]["Name"];
-                    trim_quotes(nodeName);
-                    std::cout << i + 1 << ". " << nodeName << std::endl;
-                }
-
-                // Prompt the user to select a node
-                int choice;
-                std::cout << "Enter the number of the node you'd like to choose: ";
-                std::cin >> choice;
-
-                if (choice >= 1 && choice <= nodes.size()) {
-                    std::string selectedNode = nodes[choice - 1]["Name"];
-                    trim_quotes(selectedNode);
-                    std::cout << "You selected: " << selectedNode << std::endl;
-
-                    // Ask for email and password
-                    std::cout << "Enter your email: ";
-                    std::cin >> email;
-                    std::cout << "Enter your password: ";
-                    std::cin >> password;
-
-
-                    // Check credentials using the selected node's API URL
-                    std::string api_url = "https://" + nodes[choice - 1]["API"].get<std::string>();
-
-                    if (check_credentials(api_url, email, password)) {
-                        // std::cout << "Credentials are correct!" << std::endl;
-                        install_device(api_url);
-                    } else {
-                        // std::cout << "Invalid credentials." << std::endl;
-                    }
-
-                } else {
-                    std::cout << "Invalid choice." << std::endl;
-                }
-            } catch (const json::exception& e) {
-                std::cerr << "Error: " << e.what() << std::endl;
-            }
+        // List the node names
+        for (size_t i = 0; i < nodes.size(); ++i) {
+            std::string nodeName = nodes[i]["Name"];
+            trim_quotes(nodeName);
+            std::cout << i + 1 << ". " << nodeName << std::endl;
         }
 
-        // Cleanup
-        curl_easy_cleanup(curl);
+        // Prompt the user to select a node
+        int choice;
+        std::cout << "Enter the number of the node you'd like to choose: ";
+        std::cin >> choice;
+
+        if (choice >= 1 && choice <= nodes.size()) {
+            std::string selectedNode = nodes[choice - 1]["Name"];
+            trim_quotes(selectedNode);
+            std::cout << "You selected: " << selectedNode << std::endl;
+
+            // Ask for email and password
+            std::cout << "Enter your email: ";
+            std::cin >> email;
+            std::cout << "Enter your password: ";
+            std::cin >> password;
+
+
+            // Check credentials using the selected node's API URL
+            std::string api_url = "https://" + nodes[choice - 1]["API"].get<std::string>();
+
+            if (check_credentials(api_url, email, password)) {
+                // std::cout << "Credentials are correct!" << std::endl;
+                install_device(api_url);
+            } else {
+                // std::cout << "Invalid credentials." << std::endl;
+            }
+        }
+    } catch (const json::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
 
     curl_global_cleanup();
