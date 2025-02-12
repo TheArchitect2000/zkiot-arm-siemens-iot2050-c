@@ -2,13 +2,13 @@
 
 The integration of zk-IoT with the Siemens SIMATIC IOT2050 involves the following three steps:
 1. Register the IOT2050 Device:
-  - Register the Siemens IOT2050 with an IoT server on the FidesInnova platform.
+    - Register the Siemens IOT2050 with an IoT server on the FidesInnova platform.
 2. Generate and Submit a Commitment:
-  - Create a cryptographic commitment for the IOT2050 program.
-  - Submit the generated commitment to the FidesInnova network.
+    - Create a cryptographic commitment for the IOT2050 program.
+    - Submit the generated commitment to the FidesInnova network.
 3. Generate and Submit a Proof:
-  - Generate a zero-knowledge proof (ZKP) for the IOT2050.
-  - Submit the proof to the FidesInnova network for verification.
+    - Generate a zero-knowledge proof (ZKP) for the IOT2050.
+    - Submit the proof to the FidesInnova network for verification.
 
 # Step 1: IOT2050 Registration
 In step 1, the IOT2050 device should be added to a user account on an IoT server. 
