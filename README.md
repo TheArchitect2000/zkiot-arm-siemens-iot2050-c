@@ -92,19 +92,18 @@ In this step, you should generate proofs by running the program on IOT2050 and s
 
 1. **Access the FidesInnova Explorer:**  
    - Open the [**FidesInnova Blockchain Explorer**](https://explorer.fidesinnova.io) to view your submitted commitments and proofs.  
+<p align="center">
+  <img src="docs/images/1.png" />
+</p>
 
 2. **Review Your Data:**  
    - Use the search feature to find your device ID or transaction hash.  
-   - Verify the details of your commitments and proofs to ensure successful submission.  
 
-3. **Add Screenshots (Optional):**  
-   - You can enhance this documentation by adding screenshots that show:  
-     - The **Device List** section displaying your IOT2050.  
-     - Submitted commitments and proofs on the FidesInnova Explorer.  
-     - Blockchain transaction details for verification purposes.  
-
-   *(To add images, upload them to your repository and use this format to display them:*  
-   ```markdown
-   ![Commitment Screenshot](path/to/screenshot1.png)  
-   ![Proof Submission Screenshot](path/to/screenshot2.png)
-   
+3. **Verify the proof:**
+At the transaction location, click the ` ⋮ ` and select "Verify Proof" from the menu.
+<p align="center">
+  <img src="docs/images/2.png" />
+</p>
+<p align="center">
+  <img src="docs/images/3.png" />
+</p>
