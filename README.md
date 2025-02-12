@@ -48,6 +48,11 @@ In this step, you’ll add the IOT2050 device to your user account on an IoT ser
    git clone https://github.com/FidesInnova/zkiot-arm-siemens-iot2050-c.git
    cd zkiot-arm-siemens-iot2050-c
    ```
+5. **Install the device:**
+  - Execute the `wizardry.sh` script and select `1`, then follow the instructions to register your IOT2050 on Fidesinnova platform.
+```
+./wizardry.sh
+```
 
 # 🚩 Step 2: Commitment Generation
 In this step, you should generate a commitment for your program on IOT2050 and submit it on the Fidesinnova public network.
