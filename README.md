@@ -1,7 +1,7 @@
-Applying zk-IoT on Siemens SIMATIC IOT2050 includes three steps: IOT2050 Registeration in an IoT server on Fidesinnove platfrom, Generating a commitment for IOT2050 program and submitting the commitment on fidesinnva network, Generating a proof for IOT2050 and submitting on fidesinnva network.
+Applying zk-IoT on Siemens SIMATIC IOT2050 includes three steps: IOT2050 Registration in an IoT server on Fidesinnove platform, Generating a commitment for IOT2050 program, and submitting the commitment on the Fidesinnva network, Generating a proof for IOT2050 and submitting on Fidesinnva network.
 
-# Step 1: IOT2050 Registeration
-In step 1, the OT2050 device should be added to a user account on an IoT server. 
+# Step 1: IOT2050 Registration
+In step 1, the IOT2050 device should be added to a user account on an IoT server. 
 - Create an account on an IoT server such as https://panel.motioncertified.online
 - Connect to your IOT2050 and install the git application
 ```
@@ -16,7 +16,7 @@ git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
 cd zkiot-siemens-simatic-iot2050
 ./wizardry.sh
 ```
-- Log into your web account and see your IOT2050 device in 'Device List' section.
+- Log into your web account and see your IOT2050 device in the 'Device List' section.
 
 # Step 2: Commitment Generation
 In this step, you should generate a commitment for your program on IOT2050 and submit it on the Fidesinnova public network.
@@ -27,31 +27,43 @@ sudo apt update && sudo apt install -y g++ libmosquitto-dev libmosquittopp-dev
 ```
 - Edit the following items in `device_config.json` in the project root path:
 ```
-- Class
-- IoT Developer name:
-- IoT Device name:
-- Device Hardware Version:
-- Firmware Version
-- Code Block
+{
+  "class": 1,
+  "iot_developer_name": "Fidesinnova",
+  "iot_device_name": "Siemens_IOT2050",
+  "device_hardware_version": "1.0",
+  "firmware_version": "1.7",
+  "code_block": [
+    19723,
+    19724
+  ]
+}
+```
+Update the following parameter:
+```
+"iot_developer_name": Based on the Company Name
+"iot_device_name": Your IoT device name
+"device_hardware_version"
+"firmware_version"
 ```
 
-- There is a sample program, `program.cpp`, in the project root path. The commitment will be generated for this program.
+- The project root path has a sample program, `program.cpp`. The commitment will be generated for this program.
 - Execute the wizardry.sh script to generate a commitment.
 ```
 ./wizardry.sh
 ```
-
-- Subimit the commitment on Fidesinnova blockchain. To learn about this step, please follow: [A.8. Submit the commitment on blockchain](https://github.com/FidesInnova/zkiot-usage/blob/main/README_Program.md#a8-submit-the-commitment-on-blockchain)
+You can find the commitment at `data/program_commitment.json`
+- Submit the commitment on Fidesinnova blockchain. To learn about this step, please follow: [A.8. Submit the commitment on blockchain](https://github.com/FidesInnova/zkiot-usage/blob/main/README_Program.md#a8-submit-the-commitment-on-blockchain)
   
 # Step 3: Proof Generation
-In this step, you should generate a proof for the program on IOT2050 and submit it on the Fidesinnova public network.
-- Execute the program. For this demo, you can execute `wizardry.sh` script and choose option 3.
+In this step, you should generate proofs by running the program on IOT2050 and submit it on the Fidesinnova public network.
+- For this demo, you can use `wizardry.sh` script and choose option 3 to execute the program.
 ```
 ./wizardry.sh
 ```
 
 # Step 4: Browsing Submitted Commitment and Proofs
-- Browse the submitted commitment and proofs using Fidesinnova blockchain network explorer at https://explorer.fidesinnova.io .
-- Add some picture from explorer. 
+- Browse the submitted commitment and proofs using [Fidesinnova blockchain network explorer](https://explorer.fidesinnova.io).
+- Add some pictures from explorer. 
 
   
