@@ -50,7 +50,7 @@ In this step, you should generate a proof for the program on IOT2050 and submit 
 ./wizardry.sh
 ```
 
-# Browsing Submitted Commitment and Proofs
+# Step 4: Browsing Submitted Commitment and Proofs
 - Browse the submitted commitment and proofs using Fidesinnova blockchain network explorer at https://explorer.fidesinnova.io .
 - Add some picture from explorer. 
 
