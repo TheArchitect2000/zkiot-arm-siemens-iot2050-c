@@ -1,32 +1,48 @@
-## Applying zk-IoT on Siemens SIMATIC IOT2050
+# 🚀 Applying zk-IoT on Siemens SIMATIC IOT2050
 
-The integration of zk-IoT with the Siemens SIMATIC IOT2050 involves the following three steps:
-1. Register the IOT2050 Device:
-    - Register the Siemens IOT2050 with an IoT server on the FidesInnova platform.
-2. Generate and Submit a Commitment:
-    - Create a cryptographic commitment for the IOT2050 program.
-    - Submit the generated commitment to the FidesInnova network.
-3. Generate and Submit a Proof:
-    - Generate a zero-knowledge proof (ZKP) for the IOT2050.
-    - Submit the proof to the FidesInnova network for verification.
+This guide explains how to integrate **zk-IoT** with the **Siemens SIMATIC IOT2050** using the **FidesInnova** platform. The process involves device registration, commitment generation, proof submission, and verification on the blockchain.
 
-# Step 1: IOT2050 Registration
-In step 1, the IOT2050 device should be added to a user account on an IoT server. 
-- Create an account on an IoT server such as https://panel.motioncertified.online
-- Connect to your IOT2050 and install the git application
-```
-apt install git
-```
-- Clone this GitHub repository.
-```
-git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
-```
-- Execute the wizardry.sh script to register your IoT device on your account.
-```
-cd zkiot-siemens-simatic-iot2050
-./wizardry.sh
-```
-- Log into your web account and see your IOT2050 device in the 'Device List' section.
+---
+
+## ✅ Overview of the Process
+
+1. **Register the IOT2050 Device:**  
+   - Add the Siemens IOT2050 to your account on an IoT server within the FidesInnova platform.  
+
+2. **Generate and Submit a Commitment:**  
+   - Create a cryptographic commitment for the IOT2050 program.  
+   - Submit the generated commitment to the FidesInnova network.  
+
+3. **Generate and Submit a Proof:**  
+   - Generate a zero-knowledge proof (ZKP) for the IOT2050 program.  
+   - Submit the proof to the FidesInnova network for verification.  
+
+4. **Browse the Commitment and Verify the Proof:**  
+   - Generate a zero-knowledge proof (ZKP) for the IOT2050 program.  
+   - Submit the proof to the FidesInnova network for verification.  
+
+---
+
+# 🚩 Step 1: IOT2050 Registration
+
+In this step, you’ll add the IOT2050 device to your user account on an IoT server.  
+
+1. **Create an Account:**  
+   - Sign up on an IoT server like [**Motion Certified Panel**](https://panel.motioncertified.online).  
+
+2. **Connect to Your IOT2050 Device:**  
+   - Use SSH or a serial console to connect.  
+
+3. **Install Git:**  
+   ```bash
+   sudo apt update
+   sudo apt install git -y
+
+4. **Clone the Repository:**  
+   ```bash
+   git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
+   cd zkiot-siemens-simatic-iot2050
+   ```
 
 # Step 2: Commitment Generation
 In this step, you should generate a commitment for your program on IOT2050 and submit it on the Fidesinnova public network.
@@ -72,55 +88,7 @@ In this step, you should generate proofs by running the program on IOT2050 and s
 ./wizardry.sh
 ```
 
-# Step 4: Browsing Submitted Commitment and Proofs
-- Browse the submitted commitment and proofs using [Fidesinnova blockchain network explorer](https://explorer.fidesinnova.io).
-- Add some pictures from explorer. 
-
-
-# 🚀 Applying zk-IoT on Siemens SIMATIC IOT2050
-
-This guide explains how to integrate **zk-IoT** with the **Siemens SIMATIC IOT2050** using the **FidesInnova** platform. The process involves device registration, commitment generation, proof submission, and verification on the blockchain.
-
----
-
-## ✅ Overview of the Process
-
-1. **Register the IOT2050 Device:**  
-   - Add the Siemens IOT2050 to your account on an IoT server within the FidesInnova platform.  
-
-2. **Generate and Submit a Commitment:**  
-   - Create a cryptographic commitment for the IOT2050 program.  
-   - Submit the generated commitment to the FidesInnova network.  
-
-3. **Generate and Submit a Proof:**  
-   - Generate a zero-knowledge proof (ZKP) for the IOT2050 program.  
-   - Submit the proof to the FidesInnova network for verification.  
-
----
-
-# 🚩 Step 1: IOT2050 Registration
-
-In this step, you’ll add the IOT2050 device to your user account on an IoT server.  
-
-1. **Create an Account:**  
-   - Sign up on an IoT server like [**Motion Certified Panel**](https://panel.motioncertified.online).  
-
-2. **Connect to Your IOT2050 Device:**  
-   - Use SSH or a serial console to connect.  
-
-3. **Install Git:**  
-   ```bash
-   sudo apt update
-   sudo apt install git -y
-
-4. **Clone the Repository:**  
-   ```bash
-   git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
-   cd zkiot-siemens-simatic-iot2050
-
-
-
-# 🌐 Step 4: Browsing Submitted Commitments and Proofs
+# 🌐 Step 4: Browsing the Commitment and Verifying the Proofs
 
 1. **Access the FidesInnova Explorer:**  
    - Open the [**FidesInnova Blockchain Explorer**](https://explorer.fidesinnova.io) to view your submitted commitments and proofs.  
