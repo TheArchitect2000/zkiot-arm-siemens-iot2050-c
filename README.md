@@ -44,7 +44,7 @@ In this step, you’ll add the IOT2050 device to your user account on an IoT ser
    cd zkiot-siemens-simatic-iot2050
    ```
 
-# Step 2: Commitment Generation
+# 🚩 Step 2: Commitment Generation
 In this step, you should generate a commitment for your program on IOT2050 and submit it on the Fidesinnova public network.
 
 - Install necessary libraries on IOT2050
@@ -81,7 +81,7 @@ Update the following parameter:
 You can find the commitment at `data/program_commitment.json`
 - Submit the commitment on Fidesinnova blockchain. To learn about this step, please follow: [A.8. Submit the commitment on blockchain](https://github.com/FidesInnova/zkiot-usage/blob/main/README_Program.md#a8-submit-the-commitment-on-blockchain)
   
-# Step 3: Proof Generation
+# 🚩 Step 3: Proof Generation
 In this step, you should generate proofs by running the program on IOT2050 and submit it on the Fidesinnova public network.
 - For this demo, you can use `wizardry.sh` script and choose option 3 to execute the program.
 ```
