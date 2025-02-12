@@ -112,3 +112,31 @@ In this step, you’ll add the IOT2050 device to your user account on an IoT ser
    ```bash
    sudo apt update
    sudo apt install git -y
+
+4. **Clone the Repository:**  
+   ```bash
+   git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
+   cd zkiot-siemens-simatic-iot2050
+
+
+
+# 🌐 Step 4: Browsing Submitted Commitments and Proofs
+
+1. **Access the FidesInnova Explorer:**  
+   - Open the [**FidesInnova Blockchain Explorer**](https://explorer.fidesinnova.io) to view your submitted commitments and proofs.  
+
+2. **Review Your Data:**  
+   - Use the search feature to find your device ID or transaction hash.  
+   - Verify the details of your commitments and proofs to ensure successful submission.  
+
+3. **Add Screenshots (Optional):**  
+   - You can enhance this documentation by adding screenshots that show:  
+     - The **Device List** section displaying your IOT2050.  
+     - Submitted commitments and proofs on the FidesInnova Explorer.  
+     - Blockchain transaction details for verification purposes.  
+
+   *(To add images, upload them to your repository and use this format to display them:*  
+   ```markdown
+   ![Commitment Screenshot](path/to/screenshot1.png)  
+   ![Proof Submission Screenshot](path/to/screenshot2.png)
+   
