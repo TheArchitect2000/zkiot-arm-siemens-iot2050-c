@@ -3,14 +3,19 @@
 total_steps=8
 
 echo "What would you like to do?"
-echo "1. Generate Commitment"
-echo "2. Generate ZKP"
-echo "3. Install Device"
+echo "1. Install Device"
+echo "2. Generate Commitment"
+echo "3. Generate ZKP"
 read -p "Enter your choice (1, 2, or 3): " user_choice
 
 
 case $user_choice in
     1)
+        ./install_device
+        ;;
+    
+    2)
+    
         # Step 1: Compile the program.cpp to assembly
         echo "[1/$total_steps] Compiling program.cpp to assembly"
         g++ -std=c++17 -S program.cpp -o program.s -lstdc++ -lmosquitto -lpthread
@@ -75,8 +80,7 @@ case $user_choice in
         fi
 
         ;;
-    
-    2)
+    3)
         # Step 9: Execute the program and store the output logs
         # echo "[9/$total_steps] Executing program"
         # ./program > log/proofGeneration.log 2>&1
@@ -89,9 +93,6 @@ case $user_choice in
                 echo "Restarting Program..."
             fi
         done
-        ;;
-    3)
-        ./install_device
         ;;
 esac
 # Step 10: Run the verifier and store the output logs
