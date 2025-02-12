@@ -102,7 +102,14 @@ In this step, you should generate proofs by running the program on IOT2050 and s
 </p>
 
 2. **Review Your Data:**  
-   - Use the search feature to find your device ID or transaction hash.  
+   - Use the search feature to find your device ID.
+<p align="center">
+  <img src="docs/images/4.png" />
+</p>
+<p align="center">
+  <img src="docs/images/5.png" />
+</p>
+
 
 3. **Verify the proof:**
 At the transaction location, click the ` ⋮ ` and select "Verify Proof" from the menu.
