@@ -33,7 +33,4 @@ chmod +x wizardry.sh --->
 ```
 ./wizardry.sh
 ```
-or use it with `sudo`
-```
-sudo ./wizardry.sh
-```
+- To submit a commitment to blockchain follow this [link](https://github.com/FidesInnova/zkiot-usage/blob/main/README_Program.md#a8-submit-the-commitment-on-blockchain)
