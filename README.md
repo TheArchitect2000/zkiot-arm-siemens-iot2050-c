@@ -40,8 +40,8 @@ In this step, you’ll add the IOT2050 device to your user account on an IoT ser
 
 4. **Clone the Repository:**  
    ```bash
-   git clone https://github.com/FidesInnova/zkiot-siemens-simatic-iot2050.git
-   cd zkiot-siemens-simatic-iot2050
+   git clone https://github.com/FidesInnova/zkiot-arm-siemens-iot2050-c.git
+   cd zkiot-arm-siemens-iot2050-c
    ```
 
 # 🚩 Step 2: Commitment Generation
