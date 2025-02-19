@@ -1,3 +1,19 @@
+// Copyright 2025 Fidesinnova.
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+
+//     http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Use `sudo apt install libcurl4-openssl-dev` to install library 
+
 #include <iostream>
 #include <curl/curl.h>
 #include "lib/json.hpp"
@@ -191,6 +207,17 @@ bool install_device(const std::string& api_url) {
                 return true;
             } else {
                 std::cerr << "ERROR: " << response["message"] << std::endl;
+                
+                brokerUrl = removeAppSuffix(api_url);
+                if (std::remove("broker_host.txt") == 0) {
+                    std::cout << "Existing file removed." << std::endl;
+                }
+                std::ofstream outFile("broker_host.txt");
+                if (outFile.is_open()) {
+                    outFile << brokerUrl;
+                    outFile.close();
+                    // std::cout << "Broker URL has been saved to broker_host.txt" << std::endl;
+                }
                 return false;
             }
         } catch (const json::exception& e) {

@@ -1,4 +1,4 @@
-// Copyright 2024 Fidesinnova.
+// Copyright 2025 Fidesinnova.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,15 +37,16 @@ void verifier() {
   commitmentFileStream >> commitmentJsonData;
   commitmentFileStream.close();
   uint64_t Class = commitmentJsonData["class"].get<uint64_t>();
-  vector<uint64_t> rowA_x = commitmentJsonData["RowA"].get<vector<uint64_t>>();
-  vector<uint64_t> colA_x = commitmentJsonData["ColA"].get<vector<uint64_t>>();
-  vector<uint64_t> valA_x = commitmentJsonData["ValA"].get<vector<uint64_t>>();
-  vector<uint64_t> rowB_x = commitmentJsonData["RowB"].get<vector<uint64_t>>();
-  vector<uint64_t> colB_x = commitmentJsonData["ColB"].get<vector<uint64_t>>();
-  vector<uint64_t> valB_x = commitmentJsonData["ValB"].get<vector<uint64_t>>();
-  vector<uint64_t> rowC_x = commitmentJsonData["RowC"].get<vector<uint64_t>>();
-  vector<uint64_t> colC_x = commitmentJsonData["ColC"].get<vector<uint64_t>>();
-  vector<uint64_t> valC_x = commitmentJsonData["ValC"].get<vector<uint64_t>>();
+  
+  vector<uint64_t> rowA_x = commitmentJsonData["row_AHP_A"].get<vector<uint64_t>>();
+  vector<uint64_t> colA_x = commitmentJsonData["col_AHP_A"].get<vector<uint64_t>>();
+  vector<uint64_t> valA_x = commitmentJsonData["val_AHP_A"].get<vector<uint64_t>>();
+  vector<uint64_t> rowB_x = commitmentJsonData["row_AHP_B"].get<vector<uint64_t>>();
+  vector<uint64_t> colB_x = commitmentJsonData["col_AHP_B"].get<vector<uint64_t>>();
+  vector<uint64_t> valB_x = commitmentJsonData["val_AHP_B"].get<vector<uint64_t>>();
+  vector<uint64_t> rowC_x = commitmentJsonData["row_AHP_C"].get<vector<uint64_t>>();
+  vector<uint64_t> colC_x = commitmentJsonData["col_AHP_C"].get<vector<uint64_t>>();
+  vector<uint64_t> valC_x = commitmentJsonData["val_AHP_C"].get<vector<uint64_t>>();
   /*******************************  Read Commitment  ******************************/
 
 
@@ -75,37 +76,37 @@ void verifier() {
   nlohmann::json proofJsonData;
   proofFileStream >> proofJsonData;
   proofFileStream.close();
-  uint64_t sigma1 = proofJsonData["P1AHP"].get<uint64_t>();
-  vector<uint64_t> w_hat_x = proofJsonData["P2AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> z_hatA = proofJsonData["P3AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> z_hatB = proofJsonData["P4AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> z_hatC = proofJsonData["P5AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> h_0_x = proofJsonData["P6AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> s_x = proofJsonData["P7AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> g_1_x = proofJsonData["P8AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> h_1_x = proofJsonData["P9AHP"].get<vector<uint64_t>>();
-  uint64_t sigma2 = proofJsonData["P10AHP"].get<uint64_t>();
-  vector<uint64_t> g_2_x = proofJsonData["P11AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> h_2_x = proofJsonData["P12AHP"].get<vector<uint64_t>>();
-  uint64_t sigma3 = proofJsonData["P13AHP"].get<uint64_t>();
-  vector<uint64_t> g_3_x = proofJsonData["P14AHP"].get<vector<uint64_t>>();
-  vector<uint64_t> h_3_x = proofJsonData["P15AHP"].get<vector<uint64_t>>();
-  uint64_t y_prime = proofJsonData["P16AHP"].get<uint64_t>();
-  uint64_t p_17_AHP = proofJsonData["P17AHP"].get<uint64_t>();
+  uint64_t sigma1 =           proofJsonData["P_AHP1"].get<uint64_t>();
+  vector<uint64_t> w_hat_x =  proofJsonData["P_AHP2"].get<vector<uint64_t>>();
+  vector<uint64_t> z_hatA =   proofJsonData["P_AHP3"].get<vector<uint64_t>>();
+  vector<uint64_t> z_hatB =   proofJsonData["P_AHP4"].get<vector<uint64_t>>();
+  vector<uint64_t> z_hatC =   proofJsonData["P_AHP5"].get<vector<uint64_t>>();
+  vector<uint64_t> h_0_x =    proofJsonData["P_AHP6"].get<vector<uint64_t>>();
+  vector<uint64_t> s_x =      proofJsonData["P_AHP7"].get<vector<uint64_t>>();
+  vector<uint64_t> g_1_x =    proofJsonData["P_AHP8"].get<vector<uint64_t>>();
+  vector<uint64_t> h_1_x =    proofJsonData["P_AHP9"].get<vector<uint64_t>>();
+  uint64_t sigma2 =           proofJsonData["P_AHP10"].get<uint64_t>();
+  vector<uint64_t> g_2_x =    proofJsonData["P_AHP11"].get<vector<uint64_t>>();
+  vector<uint64_t> h_2_x =    proofJsonData["P_AHP12"].get<vector<uint64_t>>();
+  uint64_t sigma3 =           proofJsonData["P_AHP13"].get<uint64_t>();
+  vector<uint64_t> g_3_x =    proofJsonData["P_AHP14"].get<vector<uint64_t>>();
+  vector<uint64_t> h_3_x =    proofJsonData["P_AHP15"].get<vector<uint64_t>>();
+  uint64_t y_prime =          proofJsonData["P_AHP16"].get<uint64_t>();
+  uint64_t p_17_AHP =         proofJsonData["P_AHP17"].get<uint64_t>();
 
-  vector<uint64_t> Com1_AHP_x = proofJsonData["Com1_AHP_x"].get<vector<uint64_t>>();
-  uint64_t Com2_AHP_x = proofJsonData["Com2_AHP_x"].get<uint64_t>();
-  uint64_t Com3_AHP_x = proofJsonData["Com3_AHP_x"].get<uint64_t>();
-  uint64_t Com4_AHP_x = proofJsonData["Com4_AHP_x"].get<uint64_t>();
-  uint64_t Com5_AHP_x = proofJsonData["Com5_AHP_x"].get<uint64_t>();
-  uint64_t Com6_AHP_x = proofJsonData["Com6_AHP_x"].get<uint64_t>();
-  uint64_t Com7_AHP_x = proofJsonData["Com7_AHP_x"].get<uint64_t>();
-  uint64_t Com8_AHP_x = proofJsonData["Com8_AHP_x"].get<uint64_t>();
-  uint64_t Com9_AHP_x = proofJsonData["Com9_AHP_x"].get<uint64_t>();
-  uint64_t Com10_AHP_x = proofJsonData["Com10_AHP_x"].get<uint64_t>();
-  uint64_t Com11_AHP_x = proofJsonData["Com11_AHP_x"].get<uint64_t>();
-  uint64_t Com12_AHP_x = proofJsonData["Com12_AHP_x"].get<uint64_t>();
-  uint64_t Com13_AHP_x = proofJsonData["Com13_AHP_x"].get<uint64_t>();
+  vector<uint64_t> Com1_AHP_x = proofJsonData["Com_AHP1_x"].get<vector<uint64_t>>();
+  uint64_t Com2_AHP_x = proofJsonData["Com_AHP2_x"].get<uint64_t>();
+  uint64_t Com3_AHP_x = proofJsonData["Com_AHP3_x"].get<uint64_t>();
+  uint64_t Com4_AHP_x = proofJsonData["Com_AHP4_x"].get<uint64_t>();
+  uint64_t Com5_AHP_x = proofJsonData["Com_AHP5_x"].get<uint64_t>();
+  uint64_t Com6_AHP_x = proofJsonData["Com_AHP6_x"].get<uint64_t>();
+  uint64_t Com7_AHP_x = proofJsonData["Com_AHP7_x"].get<uint64_t>();
+  uint64_t Com8_AHP_x = proofJsonData["Com_AHP8_x"].get<uint64_t>();
+  uint64_t Com9_AHP_x = proofJsonData["Com_AHP9_x"].get<uint64_t>();
+  uint64_t Com10_AHP_x = proofJsonData["Com_AHP10_x"].get<uint64_t>();
+  uint64_t Com11_AHP_x = proofJsonData["Com_AHP11_x"].get<uint64_t>();
+  uint64_t Com12_AHP_x = proofJsonData["Com_AHP12_x"].get<uint64_t>();
+  uint64_t Com13_AHP_x = proofJsonData["Com_AHP13_x"].get<uint64_t>();
   // uint64_t ComP_AHP_x = proofJsonData["ComP_AHP_x"].get<uint64_t>();
   // string curve = proofJsonData["curve"];
   // string protocol = proofJsonData["protocol"];

@@ -1,3 +1,17 @@
+# Copyright 2025 Fidesinnova.
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 #!/bin/bash
 
 total_steps=8
@@ -31,6 +45,36 @@ case $user_choice in
             echo "No relevent instruction found after '#APP'"
             exit 1
         fi
+
+        # Check if jq is installed
+        if ! command -v jq &> /dev/null; then
+            echo "jq is not installed. Installing jq..."
+
+            # Detect the package manager and install jq
+            if command -v apt-get &> /dev/null; then
+                sudo apt-get update
+                sudo apt-get install -y jq
+            elif command -v yum &> /dev/null; then
+                sudo yum install -y jq
+            elif command -v dnf &> /dev/null; then
+                sudo dnf install -y jq
+            elif command -v brew &> /dev/null; then
+                brew install jq
+            else
+                echo "Unsupported package manager. Please install jq manually."
+                exit 1
+            fi
+
+            # Verify installation
+            if ! command -v jq &> /dev/null; then
+                echo "Failed to install jq. Please install it manually and try again."
+                exit 1
+            fi
+        fi
+
+        # Rest of your script
+        echo "jq is installed. Proceeding with the script..."
+
 
         # Step 3: Read the class value from device_config.json
         echo "[3/$total_steps] Reading class value from device_config.json"

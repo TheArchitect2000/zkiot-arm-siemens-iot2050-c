@@ -1,4 +1,4 @@
-// Copyright 2024 Fidesinnova.
+// Copyright 2025 Fidesinnova.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -61,15 +61,15 @@ extern "C" void proofGenerator() {
   std::string IoT_Device_Name = commitmentJsonData["iot_device_name"].get<std::string>();
   std::string Firmware_Version = commitmentJsonData["firmware_version"].get<std::string>();
   std::string Device_Hardware_Version = commitmentJsonData["device_hardware_version"].get<std::string>();
-  std::vector<uint64_t> rowA_x = commitmentJsonData["RowA"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> colA_x = commitmentJsonData["ColA"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> valA_x = commitmentJsonData["ValA"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> rowB_x = commitmentJsonData["RowB"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> colB_x = commitmentJsonData["ColB"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> valB_x = commitmentJsonData["ValB"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> rowC_x = commitmentJsonData["RowC"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> colC_x = commitmentJsonData["ColC"].get<std::vector<uint64_t>>();
-  std::vector<uint64_t> valC_x = commitmentJsonData["ValC"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> rowA_x = commitmentJsonData["row_AHP_A"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> colA_x = commitmentJsonData["col_AHP_A"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> valA_x = commitmentJsonData["val_AHP_A"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> rowB_x = commitmentJsonData["row_AHP_B"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> colB_x = commitmentJsonData["col_AHP_B"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> valB_x = commitmentJsonData["val_AHP_B"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> rowC_x = commitmentJsonData["row_AHP_C"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> colC_x = commitmentJsonData["col_AHP_C"].get<std::vector<uint64_t>>();
+  std::vector<uint64_t> valC_x = commitmentJsonData["val_AHP_C"].get<std::vector<uint64_t>>();
 
 
   // Hardcoded file path
@@ -810,37 +810,37 @@ extern "C" void proofGenerator() {
   // proof["firmware_version"] = Firmware_Version;
   // proof["code_block"] = code_block;
   proof["class"] = Class;
-  proof["P1AHP"] = sigma1;
-  proof["P2AHP"] = w_hat_x;
-  proof["P3AHP"] = z_hatA;
-  proof["P4AHP"] = z_hatB;
-  proof["P5AHP"] = z_hatC;
-  proof["P6AHP"] = h_0_x;
-  proof["P7AHP"] = s_x;
-  proof["P8AHP"] = g_1_x;
-  proof["P9AHP"] = h_1_x;
-  proof["P10AHP"] = sigma2;
-  proof["P11AHP"] = g_2_x;
-  proof["P12AHP"] = h_2_x;
-  proof["P13AHP"] = sigma3;
-  proof["P14AHP"] = g_3_x;
-  proof["P15AHP"] = h_3_x;
-  proof["P16AHP"] = y_prime;
-  proof["P17AHP"] = p_17_AHP;
-  proof["Com1_AHP_x"] = Com1_AHP_x;
-  proof["Com2_AHP_x"] = Com2_AHP_x;
-  proof["Com3_AHP_x"] = Com3_AHP_x;
-  proof["Com4_AHP_x"] = Com4_AHP_x;
-  proof["Com5_AHP_x"] = Com5_AHP_x;
-  proof["Com6_AHP_x"] = Com6_AHP_x;
-  proof["Com7_AHP_x"] = Com7_AHP_x;
-  proof["Com8_AHP_x"] = Com8_AHP_x;
-  proof["Com9_AHP_x"] = Com9_AHP_x;
-  proof["Com10_AHP_x"] = Com10_AHP_x;
-  proof["Com11_AHP_x"] = Com11_AHP_x;
-  proof["Com12_AHP_x"] = Com12_AHP_x;
-  proof["Com13_AHP_x"] = Com13_AHP_x;
-  // proof["ComP_AHP_x"] = ComP_AHP_x;
+  proof["P_AHP1"] = sigma1;
+  proof["P_AHP2"] = w_hat_x;
+  proof["P_AHP3"] = z_hatA;
+  proof["P_AHP4"] = z_hatB;
+  proof["P_AHP5"] = z_hatC;
+  proof["P_AHP6"] = h_0_x;
+  proof["P_AHP7"] = s_x;
+  proof["P_AHP8"] = g_1_x;
+  proof["P_AHP9"] = h_1_x;
+  proof["P_AHP10"] = sigma2;
+  proof["P_AHP11"] = g_2_x;
+  proof["P_AHP12"] = h_2_x;
+  proof["P_AHP13"] = sigma3;
+  proof["P_AHP14"] = g_3_x;
+  proof["P_AHP15"] = h_3_x;
+  proof["P_AHP16"] = y_prime;
+  proof["P_AHP17"] = p_17_AHP;
+  proof["Com_AHP1_x"] = Com1_AHP_x;
+  proof["Com_AHP2_x"] = Com2_AHP_x;
+  proof["Com_AHP3_x"] = Com3_AHP_x;
+  proof["Com_AHP4_x"] = Com4_AHP_x;
+  proof["Com_AHP5_x"] = Com5_AHP_x;
+  proof["Com_AHP6_x"] = Com6_AHP_x;
+  proof["Com_AHP7_x"] = Com7_AHP_x;
+  proof["Com_AHP8_x"] = Com8_AHP_x;
+  proof["Com_AHP9_x"] = Com9_AHP_x;
+  proof["Com_AHP10_x"] = Com10_AHP_x;
+  proof["Com_AHP11_x"] = Com11_AHP_x;
+  proof["Com_AHP12_x"] = Com12_AHP_x;
+  proof["Com_AHP13_x"] = Com13_AHP_x;
+  // proof["ComP_AHP_x"] = ComP_AHP_x;\
 
   cout << "\n\n\n\n" << proof << "\n\n\n\n";
 

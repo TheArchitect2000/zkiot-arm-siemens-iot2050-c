@@ -1,5 +1,5 @@
 {
-    "commitment_id": "eed061fe4252c933e3697f0fcd3895bcea875c8b3cd4ad15a36744519d5dd864",
+    "commitment_id": "a9c5a623db46ef75219628e2aa9f5f505b87cc3e08f81b0bf4eb45b1bc2bd37c",
     "iot_developer_name": "Fidesinnova",
     "iot_device_name": "Siemens_IOT2050",
     "device_hardware_version": "1.0",
@@ -9,60 +9,69 @@
     "n": 35,
     "p": 1588861,
     "g": 17,
-    "RowA": [
+    "row_AHP_A": [
         1539690,
         252040,
         1089890,
         976702
     ],
-    "ColA": [
+    "col_AHP_A": [
         860159,
         285701,
         1418889,
         592509
     ],
-    "ValA": [
+    "val_AHP_A": [
         1502728,
         1258110,
         918890,
         1163508
     ],
-    "RowB": [
+    "row_AHP_B": [
         502100,
         1289630,
         52300,
         425431
     ],
-    "ColB": [
+    "col_AHP_B": [
         603791,
         389452,
         1162521,
         696260
     ],
-    "ValB": [
+    "val_AHP_B": [
         1526518,
         975451,
         942680,
         880849
     ],
-    "RowC": [
+    "row_AHP_C": [
         1539690,
         252040,
         1089890,
         976702
     ],
-    "ColC": [
+    "col_AHP_C": [
         1539690,
         252040,
         1089890,
         976702
     ],
-    "ValC": [
+    "val_AHP_C": [
         1147974,
         1381799,
         1050419,
         816594
     ],
-    "Curve": "bn128",
+    "Com_AHP0": 95085,
+    "Com_AHP1": 1458512,
+    "Com_AHP2": 95992,
+    "Com_AHP3": 1486087,
+    "Com_AHP4": 472594,
+    "Com_AHP5": 455391,
+    "Com_AHP6": 95085,
+    "Com_AHP7": 95085,
+    "Com_AHP8": 450947,
+    "curve": "bn128",
     "polynomial_commitment": "KZG"
 }

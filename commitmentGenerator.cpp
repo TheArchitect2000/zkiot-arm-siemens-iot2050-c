@@ -1,4 +1,4 @@
-// Copyright 2024 Fidesinnova.
+// Copyright 2025 Fidesinnova.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -622,16 +622,25 @@ void commitmentGenerator() {
   commitment["n"] = n;
   commitment["p"] = p;
   commitment["g"] = g;
-  commitment["RowA"] = rowA_x;
-  commitment["ColA"] = colA_x;
-  commitment["ValA"] = valA_x;
-  commitment["RowB"] = rowB_x;
-  commitment["ColB"] = colB_x;
-  commitment["ValB"] = valB_x;
-  commitment["RowC"] = rowC_x;
-  commitment["ColC"] = colC_x;
-  commitment["ValC"] = valC_x;
-  commitment["Curve"] = "bn128";
+  commitment["row_AHP_A"] = rowA_x;
+  commitment["col_AHP_A"] = colA_x;
+  commitment["val_AHP_A"] = valA_x;
+  commitment["row_AHP_B"] = rowB_x;
+  commitment["col_AHP_B"] = colB_x;
+  commitment["val_AHP_B"] = valB_x;
+  commitment["row_AHP_C"] = rowC_x;
+  commitment["col_AHP_C"] = colC_x;
+  commitment["val_AHP_C"] = valC_x;
+  commitment["Com_AHP0"] = Com0_AHP;
+  commitment["Com_AHP1"] = Com1_AHP;
+  commitment["Com_AHP2"] = Com2_AHP;
+  commitment["Com_AHP3"] = Com3_AHP;
+  commitment["Com_AHP4"] = Com4_AHP;
+  commitment["Com_AHP5"] = Com5_AHP;
+  commitment["Com_AHP6"] = Com6_AHP;
+  commitment["Com_AHP7"] = Com7_AHP;
+  commitment["Com_AHP8"] = Com8_AHP;
+  commitment["curve"] = "bn128";
   commitment["polynomial_commitment"] = "KZG";
 
   // Serialize JSON object to a string
