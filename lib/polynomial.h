@@ -124,8 +124,10 @@ public:
   // Function to compute the SHA-256 hash of an uint64_t and return the lower 4 bytes as uint64_t, applying a modulo operation
   static string SHA256(char* data);
 
+  // Function to divided difference for polynomial using newton
   static vector<uint64_t> newtonDividedDifferences(const vector<uint64_t>& x_values, const vector<uint64_t>& y_values, uint64_t p);
 
+  // Function to calculate polynomial using newton
   static vector<uint64_t> newtonPolynomial(const vector<uint64_t>& coefficients, const vector<uint64_t>& x_values, uint64_t p);
 };
 
