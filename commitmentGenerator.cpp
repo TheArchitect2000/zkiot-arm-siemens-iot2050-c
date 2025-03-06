@@ -55,7 +55,7 @@ std::vector<std::string> instructions;
 uint64_t Class;
 string commitmentID;
 string IoT_Manufacturer_Name;
-string IoT_Device_Name;
+string IoT_Device_Type;
 string Device_Hardware_Version;
 string Firmware_Version;
 
@@ -76,7 +76,7 @@ std::pair<uint64_t, uint64_t> parseDeviceConfig(const std::string &configFile, n
   uint64_t endLine = config["code_block"][1].get<uint64_t>();
   Class = config["class"].get<uint64_t>();
   IoT_Manufacturer_Name = config["iot_developer_name"].get<string>();
-  IoT_Device_Name = config["iot_device_name"].get<string>();
+  IoT_Device_Type = config["iot_device_type"].get<string>();
   Device_Hardware_Version = config["device_hardware_version"].get<string>();
   Firmware_Version = config["firmware_version"].get<string>();
 
@@ -604,7 +604,7 @@ void commitmentGenerator() {
 
   // Concatenate the strings
   std::stringstream commitment_id_ss;
-  commitment_id_ss << IoT_Manufacturer_Name << IoT_Device_Name << Device_Hardware_Version << Firmware_Version << in_time_t;
+  commitment_id_ss << IoT_Manufacturer_Name << IoT_Device_Type << Device_Hardware_Version << Firmware_Version << in_time_t;
   std::string concatenatedString = commitment_id_ss.str();
   char* concatenatedStringCStr = const_cast<char*>(concatenatedString.c_str());
 
@@ -614,7 +614,7 @@ void commitmentGenerator() {
   commitment.clear();
   commitment["commitment_id"] = commitmentID;
   commitment["iot_developer_name"] = IoT_Manufacturer_Name;
-  commitment["iot_device_name"] = IoT_Device_Name;
+  commitment["iot_device_type"] = IoT_Device_Type;
   commitment["device_hardware_version"] = Device_Hardware_Version;
   commitment["firmware_version"] = Firmware_Version;
   commitment["class"] = Class;

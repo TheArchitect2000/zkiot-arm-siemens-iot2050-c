@@ -1,9 +1,9 @@
 {
-    "commitment_id": "a9c5a623db46ef75219628e2aa9f5f505b87cc3e08f81b0bf4eb45b1bc2bd37c",
-    "iot_developer_name": "Fidesinnova",
-    "iot_device_name": "Siemens_IOT2050",
+    "commitment_id": "66c38ce42fff23788b469edac31640321efa4195ed7c12d0754a96b7509dc883",
+    "iot_developer_name": "MHT",
+    "iot_device_type": "Siemens_IOT2050",
     "device_hardware_version": "1.0",
-    "firmware_version": "1.7",
+    "firmware_version": "2.0",
     "class": 1,
     "m": 4,
     "n": 35,

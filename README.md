@@ -65,8 +65,8 @@ sudo apt update && sudo apt install -y g++ libmosquitto-dev libmosquittopp-dev
 ```
 {
   "class": 1,
-  "iot_developer_name": "Fidesinnova",
-  "iot_device_name": "Siemens_IOT2050",
+  "iot_developer_name": "MHT",
+  "iot_device_Type": "Siemens_IOT2050",
   "device_hardware_version": "1.0",
   "firmware_version": "1.7",
   "code_block": [
@@ -78,7 +78,7 @@ sudo apt update && sudo apt install -y g++ libmosquitto-dev libmosquittopp-dev
 Update the following parameter:
 ```
 "iot_developer_name": Based on the Company Name
-"iot_device_name": Your IoT device name
+"iot_device_Type": Your IoT device type
 "device_hardware_version"
 "firmware_version"
 ```

@@ -2,7 +2,6 @@
   "class": 1,
   "iot_developer_name": "MHT",
   "iot_device_type": "Siemens_IOT2050",
-  "iot_device_name": "Control Room 1",
   "program_name": "e-card_temperatur_v1.cpp",
   "device_hardware_version": "1.0",
   "firmware_version": "2.0",
