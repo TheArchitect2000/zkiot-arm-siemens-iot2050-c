@@ -219,6 +219,11 @@ void modifyAndSaveAssembly(const std::string &assemblyFile, const std::string &n
         newAssemblyFileStream << "ldr x11, [x10]" << endl;
         newAssemblyFileStream << "str x11, [x9, #" << std::to_string((i+1)*8) << "]" << endl;
       }
+      
+      newAssemblyFileStream << "ldr x9, =z_array" << endl;
+      newAssemblyFileStream << "mov x10, #0" << endl;
+      newAssemblyFileStream << "str x10, [x9]" << endl;
+
       vector<uint64_t> spaceSizeZ(32, 8);
       vector<uint64_t> yList;
       

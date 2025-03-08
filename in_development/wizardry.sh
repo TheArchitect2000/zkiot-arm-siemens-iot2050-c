@@ -73,7 +73,7 @@ case $user_choice in
         fi
 
         # Rest of your script
-        echo "jq is installed. Proceeding with the script..."
+        # echo "jq is installed. Proceeding with the script..."
 
 
         # Step 3: Read the class value from device_config.json
@@ -117,7 +117,7 @@ case $user_choice in
 
         # Step 8: Build the program_new.s using the updated codes and store the output logs
         echo "[8/$total_steps] Build the executable from program_new.s"
-        g++ -std=c++17 program_new.s lib/polynomial.cpp -o program -lstdc++ -lmosquitto -lpthread
+        g++ -std=c++17 program_new.s lib/polynomial.cpp -o program -lstdc++ -g -lmosquitto -lpthread
         if [ $? -ne 0 ]; then
             echo "Build failed"
             exit 1

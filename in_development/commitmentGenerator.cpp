@@ -145,7 +145,22 @@ void modifyAndSaveAssembly(const std::string &assemblyFile, const std::string &n
   vector<uint64_t> spaceSize(32, 8);
   vector<uint64_t> rdList;
   while (std::getline(assemblyFileStream, line)) {
-    // Insert variables before the specified lines
+    if (currentLineNumber == startLine) {
+      newAssemblyFileStream << ".global zkp_start\n zkp_start: nop\n";
+      newAssemblyFileStream << line << std::endl;
+      instructions.push_back(line);
+    }
+    else if (currentLineNumber > startLine && currentLineNumber <= endLine) {
+      newAssemblyFileStream << line << std::endl;
+      instructions.push_back(line);
+    }
+    else if (currentLineNumber == endLine + 1) {
+      newAssemblyFileStream << ".global zkp_end\n zkp_end: nop\n";
+    }
+    else {
+      newAssemblyFileStream << line << std::endl;
+    }
+    /*// Insert variables before the specified lines
     if (currentLineNumber == startLine) {
       newAssemblyFileStream << "bl store_register_instances\n";
       newAssemblyFileStream << line << std::endl;
@@ -253,11 +268,11 @@ void modifyAndSaveAssembly(const std::string &assemblyFile, const std::string &n
     }
     else {
       newAssemblyFileStream << line << std::endl;
-    }
+    }*/
 
-    ++currentLineNumber;
+    currentLineNumber++;
   }
-
+/*
   std::string assemblyCode = ".section .data\n";
   assemblyCode += ".global z_array\nz_array:    .space " + std::to_string((n_i + n_g + 1) * 8) + "\n";
 
@@ -284,20 +299,8 @@ assemblyCode += "      str x30, [x10]\n";
 
 assemblyCode += "      ret\n";
 
-
-
-
-  // Replace all instances of "{SPACE_SIZE}" with the actual value of spaceSize
-  // size_t pos = 0;
-  // while ((pos = assemblyCode.find("{SPACE_SIZE}", pos)) != std::string::npos) {
-  //   std::string spaceSizeStr = std::to_string(spaceSize[pos]);
-
-  //   assemblyCode.replace(pos, spaceSizeStr.length(), spaceSizeStr);
-  //   pos += spaceSizeStr.length();
-  // }
-
   newAssemblyFileStream << assemblyCode << std::endl;
-
+*/
   assemblyFileStream.close();
   newAssemblyFileStream.close();
 }

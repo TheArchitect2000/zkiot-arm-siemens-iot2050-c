@@ -17,7 +17,6 @@
 #define FIDESINNOVA_H
 
 #include "polynomial.h"
-#include "proofGenerator.cpp"
 #include <iostream>
 #include <fstream>
 #include <string>

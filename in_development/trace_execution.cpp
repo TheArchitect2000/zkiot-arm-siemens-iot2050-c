@@ -102,16 +102,24 @@ int main(int argc, char* argv[]) {
     gdbCommands << "set logging file " << outputFile << std::endl;
     gdbCommands << "set logging overwrite on" << std::endl; // Overwrite the file
     gdbCommands << "set logging on" << std::endl;
-    gdbCommands << "break main" << std::endl; // Set a breakpoint at main
-    gdbCommands << "run" << std::endl; // Run the program until main
-    gdbCommands << "info registers" << std::endl; // Capture registers before the first instruction
-    gdbCommands << "while $pc < main + 40" << std::endl; // Stop after main's assembly block
-    gdbCommands << "info registers" << std::endl; // Log registers
+    
+    gdbCommands << "break zkp_start" << std::endl; // Set a breakpoint at zkp_start
+    gdbCommands << "run" << std::endl; // Run the program until zkp_start
+    gdbCommands << "stepi" << std::endl; // Move to the first instruction after zkp_start
+    
+    gdbCommands << "break zkp_end" << std::endl; // Set a breakpoint at zkp_end (stop before executing it)
+    gdbCommands << "while $pc != zkp_end" << std::endl; // Iterate until the last instruction BEFORE zkp_end
+    gdbCommands << "info registers" << std::endl; // Log all registers before executing each instruction
     gdbCommands << "x/i $pc" << std::endl; // Log the current instruction
     gdbCommands << "stepi" << std::endl; // Step to the next instruction
     gdbCommands << "end" << std::endl;
+    
+    gdbCommands << "info registers" << std::endl; // Capture all registers BEFORE reaching zkp_end (last meaningful instruction)
+    
     gdbCommands << "set logging off" << std::endl;
     gdbCommands << "quit" << std::endl;
+    
+
     gdbCommands.close();
 
     // Execute the GDB command and suppress terminal output
