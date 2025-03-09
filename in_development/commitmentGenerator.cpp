@@ -150,7 +150,7 @@ void modifyAndSaveAssembly(const std::string &assemblyFile, const std::string &n
       newAssemblyFileStream << line << std::endl;
       instructions.push_back(line);
     }
-    else if (currentLineNumber > startLine && currentLineNumber <= endLine) {
+    else if (currentLineNumber > startLine && currentLineNumber <= endLine) { //  endLine - 2 to add 
       newAssemblyFileStream << line << std::endl;
       instructions.push_back(line);
     }
@@ -360,7 +360,7 @@ void commitmentGenerator() {
     uint64_t li = 0;
     uint64_t ri = 0;
 
-    if (opcode == "add" || opcode == "addi" || opcode == "mul") {
+    if (opcode == "add" || opcode == "addi" || opcode == "mul" || "sdiv") {
       ss >> leftStr >> rightStr;
 
       // Remove commas

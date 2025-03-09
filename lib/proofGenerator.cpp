@@ -57,10 +57,6 @@ extern "C" void proofGenerator() {
   // Extract data from the parsed JSON
   uint64_t Class = commitmentJsonData["class"].get<uint64_t>();
   std::string commitmentID = commitmentJsonData["commitment_id"].get<std::string>();
-  std::string IoT_Manufacturer_Name = commitmentJsonData["iot_developer_name"].get<std::string>();
-  std::string IoT_Device_Name = commitmentJsonData["iot_device_name"].get<std::string>();
-  std::string Firmware_Version = commitmentJsonData["firmware_version"].get<std::string>();
-  std::string Device_Hardware_Version = commitmentJsonData["device_hardware_version"].get<std::string>();
   std::vector<uint64_t> rowA_x = commitmentJsonData["row_AHP_A"].get<std::vector<uint64_t>>();
   std::vector<uint64_t> colA_x = commitmentJsonData["col_AHP_A"].get<std::vector<uint64_t>>();
   std::vector<uint64_t> valA_x = commitmentJsonData["val_AHP_A"].get<std::vector<uint64_t>>();

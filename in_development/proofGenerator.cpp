@@ -25,13 +25,128 @@ using ordered_json = nlohmann::ordered_json;
 #include <regex>
 #include <random>
 #include <chrono>
+#include <cstdlib>
 
 using namespace std;
 using namespace chrono;
 
 vector<int64_t> z_array;
+int64_t input_value = 0;
+int64_t output_value = 0;
 
-void process_execution_trace() {
+// Function to clean up the GDB output file
+void cleanupTraceFile(const std::string& filename) {
+  std::ifstream inFile(filename);
+  if (!inFile) {
+      std::cerr << "Failed to open trace file for cleaning." << std::endl;
+  }
+
+  std::vector<std::string> lines;
+  std::string line;
+  bool isBlockActive = false;
+  std::string currentBlock;
+  bool initialRegistersProcessed = false;
+
+  // Read the file line by line
+  while (std::getline(inFile, line)) {
+      // Handle the initial register dump (before the first instruction)
+      if (!initialRegistersProcessed && (line.find("x") == 0 || line.find("sp") == 0 || line.find("pc") == 0 ||
+                                        line.find("cpsr") == 0 || line.find("fpsr") == 0 || line.find("fpcr") == 0)) {
+          lines.push_back(line + "\n");
+          continue;
+      }
+
+      // Start a new block when an instruction line is found
+      if (line.find("=>") != std::string::npos) {
+          if (isBlockActive) {
+              // Save the current block
+              lines.push_back(currentBlock);
+              lines.push_back("-----------------------------------------------------\n"); // Separator between blocks
+          }
+          // Start a new block
+          currentBlock = line + "\n";
+          isBlockActive = true;
+          initialRegistersProcessed = true; // Mark that initial registers have been processed
+      }
+      // Add register lines to the current block
+      else if (line.find("x") == 0 || line.find("sp") == 0 || line.find("pc") == 0 ||
+               line.find("cpsr") == 0 || line.find("fpsr") == 0 || line.find("fpcr") == 0) {
+          if (isBlockActive) {
+              currentBlock += line + "\n";
+          }
+      }
+  }
+
+  // Save the last block if it exists
+  if (isBlockActive) {
+      lines.push_back(currentBlock);
+  }
+  inFile.close();
+
+  // Write the cleaned lines back to the file
+  std::ofstream outFile(filename);
+  if (!outFile) {
+      std::cerr << "Failed to open trace file for writing cleaned data." << std::endl;
+  }
+
+  for (const auto& cleanedLine : lines) {
+      outFile << cleanedLine;
+  }
+  outFile.close();
+}
+
+void run_the_user_program(int argc, char* argv[]) {
+  if (argc < 2) {
+      std::cerr << "Usage: " << argv[0] << " <program_to_execute>" << std::endl;
+  }
+
+  std::string program = argv[1];
+  std::string gdbCommand = "gdb --batch --command=gdb_commands.txt " + program + " > /dev/null 2>&1";
+  std::string outputFile = "execution_trace.txt";
+
+  // Create a GDB command file
+  std::ofstream gdbCommands("gdb_commands.txt");
+  if (!gdbCommands) {
+      std::cerr << "Failed to create GDB command file." << std::endl;
+  }
+
+  gdbCommands << "set logging file " << outputFile << std::endl;
+  gdbCommands << "set logging overwrite on" << std::endl; // Overwrite the file
+  gdbCommands << "set logging on" << std::endl;
+  
+  gdbCommands << "break zkp_start" << std::endl; // Set a breakpoint at zkp_start
+  gdbCommands << "run" << std::endl; // Run the program until zkp_start
+  gdbCommands << "stepi" << std::endl; // Move to the first instruction after zkp_start
+  
+  gdbCommands << "break zkp_end" << std::endl; // Set a breakpoint at zkp_end (stop before executing it)
+  gdbCommands << "while $pc != zkp_end" << std::endl; // Iterate until the last instruction BEFORE zkp_end
+  gdbCommands << "info registers" << std::endl; // Log all registers before executing each instruction
+  gdbCommands << "x/i $pc" << std::endl; // Log the current instruction
+  gdbCommands << "stepi" << std::endl; // Step to the next instruction
+  gdbCommands << "end" << std::endl;
+  
+  gdbCommands << "info registers" << std::endl; // Capture all registers BEFORE reaching zkp_end (last meaningful instruction)
+  
+  gdbCommands << "set logging off" << std::endl;
+  gdbCommands << "quit" << std::endl;
+  
+
+  gdbCommands.close();
+
+  // Execute the GDB command and suppress terminal output
+  int result = std::system(gdbCommand.c_str());
+  if (result != 0) {
+      std::cerr << "GDB execution failed." << std::endl;
+  }
+
+  // Clean up the trace file
+  cleanupTraceFile(outputFile);
+
+  std::cout << "Execution trace saved and cleaned in " << outputFile << std::endl;
+}
+
+
+void process_execution_trace_file() {
   ifstream file("execution_trace.txt");
   if (!file) {
       cerr << "Error opening file" << endl;
@@ -50,7 +165,7 @@ void process_execution_trace() {
   string src_reg1;
   string src_reg2;
   string immediate;
-
+  bool first_instruction = true;
   while (getline(file, line)) {
     line_number++;
     stringstream ss(line);
@@ -65,6 +180,7 @@ void process_execution_trace() {
       }
     }
     if (line.find("=>") != string::npos) {
+      
       line_number = 100;
       ss.ignore(256, ':');
       ss >> instruction >> dest_reg >> src_reg1;
@@ -74,6 +190,11 @@ void process_execution_trace() {
     if(line_number >= 101 && line_number <= 131) {
       ss >> reg_name >> hex_val >> int_val;
       if(dest_reg == reg_name) {
+        if(first_instruction) {
+          input_value = z_array[line_number-100];
+          first_instruction = false;
+        }
+        output_value = int_val;
         z_array.push_back(int_val);
       }
     }
@@ -110,7 +231,6 @@ void proofGenerator() {
     }
     commitmentJsonData = nlohmann::json::parse(commitmentJsonInput);
     // std::cerr << "Error: " << e.what() << std::endl;
-    // return;
   }
 
   // Extract data from the parsed JSON
@@ -146,7 +266,6 @@ void proofGenerator() {
     }
     paramJsonData = nlohmann::json::parse(paramJsonInput);
     // std::cerr << "Error: " << e.what() << std::endl;
-    // return;
   }
   vector<uint64_t> nonZeroA = paramJsonData["A"].get<vector<uint64_t>>();
   vector<vector<uint64_t>> nonZeroB = paramJsonData["B"].get<vector<vector<uint64_t>>>();
@@ -180,7 +299,6 @@ void proofGenerator() {
     }
     classJsonData = nlohmann::json::parse(classJsonInput);
       // std::cerr << "Error: " << e.what() << std::endl;
-      // return;
   }
   uint64_t n_i, n_g, m, n, p, g;
   string class_value = to_string(Class); // Convert integer to string class
@@ -218,7 +336,6 @@ void proofGenerator() {
     }
     setupJsonData = nlohmann::json::parse(setupJsonInput);
       // std::cerr << "Error: " << e.what() << std::endl;
-      // return;
   }
   vector<uint64_t> ck = setupJsonData["ck"].get<vector<uint64_t>>();
   uint64_t vk = setupJsonData["vk"].get<uint64_t>();
@@ -857,6 +974,8 @@ void proofGenerator() {
   proof.clear(); 
   proof["commitment_id"] = commitmentID;
   proof["class"] = Class;
+  proof["input_value"] = input_value;
+  proof["output_value"] = output_value;
   proof["P_AHP1"] = sigma1;
   proof["P_AHP2"] = w_hat_x;
   proof["P_AHP3"] = z_hatA;
@@ -887,7 +1006,7 @@ void proofGenerator() {
   proof["Com_AHP11_x"] = Com11_AHP_x;
   proof["Com_AHP12_x"] = Com12_AHP_x;
   proof["Com_AHP13_x"] = Com13_AHP_x;
-  // proof["ComP_AHP_x"] = ComP_AHP_x;\
+  // proof["ComP_AHP_x"] = ComP_AHP_x;
 
   cout << "\n\n\n\n" << proof << "\n\n\n\n";
 
@@ -896,7 +1015,7 @@ void proofGenerator() {
   // Print the time taken
   cout << "Time taken: " << duration.count() << " milliseconds" << endl;
 
-  std::string proofString = proof.dump();
+  std::string proofString = proof.dump(4);
   std::ofstream proofFile("data/proof.json");
   if (proofFile.is_open()) {
       proofFile << proofString;
@@ -908,8 +1027,9 @@ void proofGenerator() {
 }
 
 
-int main() {
-  process_execution_trace();
+int main(int argc, char* argv[]) {
+  run_the_user_program(argc, argv);
+  process_execution_trace_file();
   proofGenerator();
   return 0;
 }
