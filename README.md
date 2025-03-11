@@ -33,7 +33,7 @@ This guide explains how to integrate **zk-IoT** with the **Siemens SIMATIC IOT20
 In this step, you’ll add the IOT2050 device to your user account on an IoT server.  
 
 1. **Create an Account:**  
-   - Sign up on an IoT server like [**Motion Certified Panel**](https://panel.motioncertified.online).  
+   - Sign up on an IoT server like [**zkSensor Panel**](https://panel.zksensor.tech).  
 
 2. **Connect to Your IOT2050 Device:**  
    - Use SSH or a serial console to connect.  
