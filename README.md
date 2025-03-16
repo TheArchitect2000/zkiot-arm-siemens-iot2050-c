@@ -78,6 +78,7 @@ sudo apt update && sudo apt install -y g++ libmosquitto-dev libmosquittopp-dev
 ```
 Update the following parameter:
 ```
+"class": It corresponds to the number of gates in the ZKP circuit
 "deviceType": Type of the device (e.g., Car, Sensor)
 "deviceIdType": Type of the device ID (e.g., 'MAC', 'VIN')
 "softwareVersion": Software/firmware version of the device (e.g., '1.0.0')
