@@ -20,7 +20,8 @@ echo "What would you like to do?"
 echo "1. Install Device"
 echo "2. Generate Commitment"
 echo "3. Generate ZKP"
-read -p "Enter your choice (1, 2, or 3): " user_choice
+echo "4. Verify ZKP"
+read -p "Enter your choice (1, 2, 3, or 4): " user_choice
 
 
 case $user_choice in
@@ -129,30 +130,29 @@ case $user_choice in
         # echo "[9/$total_steps] Executing program"
         # ./program > log/proofGeneration.log 2>&1
         echo "Generating ZKP."
-        while true; do
-            ./program 2>&1  # Redirect both stdout and stderr to /dev/null
-            if [ $? -eq 0 ]; then
-                break  # Exit the loop if the program exits successfully
-            else
-                echo "Restarting Program..."
-            fi
-        done
+        # while true; do
+        ./proofGenerator ./program 2>&1  # Redirect both stdout and stderr to /dev/null
+        # if [ $? -eq 0 ]; then
+        #     break  # Exit the loop if the program exits successfully
+        # else
+        #     echo "Restarting Program..."
+        # fi
+        # done
         ;;
+    
+    4)
+        echo "Verify ZKP."
+        ./verifier > log/verifier.log 2>&1
+        if [ $? -ne 0 ]; then
+            echo "Verifier execution failed"
+            exit 1
+        fi
+        echo "Checking verification result"
+        if grep -q 'verify!' log/verifier.log; then
+            echo "Verification: true"
+        else
+            echo "Verification: false"
+        fi
 esac
-# Step 10: Run the verifier and store the output logs
-# echo "[10/$total_steps] Running the verifier"
-# ./verifier > log/verifier.log 2>&1
-# if [ $? -ne 0 ]; then
-#     echo "Verifier execution failed"
-#     exit 1
-# fi
-
-# Step 11: Check verifier.log for verification result
-# echo "[11/$total_steps] Checking verification result"
-# if grep -q 'verify!' log/verifier.log; then
-#     echo "Verification: true"
-# else
-#     echo "Verification: false"
-# fi
 
 # echo "Script completed successfully"

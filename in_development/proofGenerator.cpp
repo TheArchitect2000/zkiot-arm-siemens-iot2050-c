@@ -235,7 +235,7 @@ void proofGenerator() {
 
   // Extract data from the parsed JSON
   uint64_t Class = commitmentJsonData["class"].get<uint64_t>();
-  std::string commitmentID = commitmentJsonData["commitment_id"].get<std::string>();
+  std::string commitmentID = commitmentJsonData["commitmentId"].get<std::string>();
   std::vector<uint64_t> rowA_x = commitmentJsonData["row_AHP_A"].get<std::vector<uint64_t>>();
   std::vector<uint64_t> colA_x = commitmentJsonData["col_AHP_A"].get<std::vector<uint64_t>>();
   std::vector<uint64_t> valA_x = commitmentJsonData["val_AHP_A"].get<std::vector<uint64_t>>();
@@ -972,10 +972,10 @@ void proofGenerator() {
 
   ordered_json proof;
   proof.clear(); 
-  proof["commitment_id"] = commitmentID;
+  proof["commitmentId"] = commitmentID;
   proof["class"] = Class;
-  proof["input_value"] = input_value;
-  proof["output_value"] = output_value;
+  proof["input"] = input_value;
+  proof["output"] = output_value;
   proof["P_AHP1"] = sigma1;
   proof["P_AHP2"] = w_hat_x;
   proof["P_AHP3"] = z_hatA;

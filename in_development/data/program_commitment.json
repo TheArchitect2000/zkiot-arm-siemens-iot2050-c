@@ -1,9 +1,10 @@
 {
-    "commitment_id": "702d5ddc467dc8610aa2ef22de9fb93322d247cb82d0012fa08623ac3865eb64",
-    "iot_developer_name": "MHT",
-    "iot_device_type": "Siemens_IOT2050",
-    "device_hardware_version": "1.0",
-    "firmware_version": "2.0",
+    "commitmentId": "21cdb8785a3a1ff0cec2579135172473fbae186c2a974deb011ee2426676d04e",
+    "deviceType": "Sensor",
+    "deviceIdType": "MAC",
+    "deviceModel": "Siemense ",
+    "manufacturer": "MHT",
+    "softwareVersion": "1.2",
     "class": 1,
     "m": 4,
     "n": 35,
@@ -16,16 +17,16 @@
         976702
     ],
     "col_AHP_A": [
-        860159,
-        285701,
-        1418889,
-        592509
+        646684,
+        72226,
+        1205414,
+        379034
     ],
     "val_AHP_A": [
-        1502728,
-        1258110,
-        918890,
-        1163508
+        797732,
+        553114,
+        213894,
+        458512
     ],
     "row_AHP_B": [
         502100,
@@ -40,10 +41,10 @@
         696260
     ],
     "val_AHP_B": [
-        880188,
-        569115,
-        149,
-        1287185
+        1464026,
+        663717,
+        1005172,
+        1192583
     ],
     "row_AHP_C": [
         1539690,
@@ -64,11 +65,11 @@
         816594
     ],
     "Com_AHP0": 95085,
-    "Com_AHP1": 1458512,
-    "Com_AHP2": 95992,
+    "Com_AHP1": 596857,
+    "Com_AHP2": 1560213,
     "Com_AHP3": 1486087,
     "Com_AHP4": 472594,
-    "Com_AHP5": 1526891,
+    "Com_AHP5": 23750,
     "Com_AHP6": 95085,
     "Com_AHP7": 95085,
     "Com_AHP8": 450947,

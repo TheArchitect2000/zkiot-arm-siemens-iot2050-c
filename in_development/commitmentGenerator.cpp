@@ -54,10 +54,11 @@ std::string configFile = "device_config.json", setupFile, assemblyFile = "progra
 std::vector<std::string> instructions;
 uint64_t Class;
 string commitmentID;
-string IoT_Manufacturer_Name;
-string IoT_Device_Type;
-string Device_Hardware_Version;
-string Firmware_Version;
+string deviceType;
+string deviceIdType;
+string deviceModel;
+string manufacturer;
+string softwareVersion;
 
 // Function to read JSON config file and parse lines to read from assembly file
 std::pair<uint64_t, uint64_t> parseDeviceConfig(const std::string &configFile, nlohmann::json &config) {
@@ -75,10 +76,11 @@ std::pair<uint64_t, uint64_t> parseDeviceConfig(const std::string &configFile, n
   uint64_t startLine = config["code_block"][0].get<uint64_t>();
   uint64_t endLine = config["code_block"][1].get<uint64_t>();
   Class = config["class"].get<uint64_t>();
-  IoT_Manufacturer_Name = config["iot_developer_name"].get<string>();
-  IoT_Device_Type = config["iot_device_type"].get<string>();
-  Device_Hardware_Version = config["device_hardware_version"].get<string>();
-  Firmware_Version = config["firmware_version"].get<string>();
+  deviceType = config["deviceType"].get<string>();
+  deviceIdType = config["deviceIdType"].get<string>();
+  deviceModel = config["deviceModel"].get<string>();
+  manufacturer = config["manufacturer"].get<string>();
+  softwareVersion = config["softwareVersion"].get<string>();
 
   std::ifstream classFileStream("class.json");
   if (!classFileStream.is_open()) {
@@ -607,7 +609,7 @@ void commitmentGenerator() {
 
   // Concatenate the strings
   std::stringstream commitment_id_ss;
-  commitment_id_ss << IoT_Manufacturer_Name << IoT_Device_Type << Device_Hardware_Version << Firmware_Version << in_time_t;
+  commitment_id_ss << deviceType << deviceIdType << deviceModel << manufacturer << softwareVersion << in_time_t;
   std::string concatenatedString = commitment_id_ss.str();
   char* concatenatedStringCStr = const_cast<char*>(concatenatedString.c_str());
 
@@ -615,11 +617,12 @@ void commitmentGenerator() {
 
   ordered_json commitment;
   commitment.clear();
-  commitment["commitment_id"] = commitmentID;
-  commitment["iot_developer_name"] = IoT_Manufacturer_Name;
-  commitment["iot_device_type"] = IoT_Device_Type;
-  commitment["device_hardware_version"] = Device_Hardware_Version;
-  commitment["firmware_version"] = Firmware_Version;
+  commitment["commitmentId"] = commitmentID;
+  commitment["deviceType"] = deviceType;
+  commitment["deviceIdType"] = deviceIdType;
+  commitment["deviceModel"] = deviceModel;
+  commitment["manufacturer"] = manufacturer;
+  commitment["softwareVersion"] = softwareVersion;
   commitment["class"] = Class;
   commitment["m"] = m;
   commitment["n"] = n;
