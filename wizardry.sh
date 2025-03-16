@@ -73,7 +73,7 @@ case $user_choice in
         fi
 
         # Rest of your script
-        echo "jq is installed. Proceeding with the script..."
+        # echo "jq is installed. Proceeding with the script..."
 
 
         # Step 3: Read the class value from device_config.json

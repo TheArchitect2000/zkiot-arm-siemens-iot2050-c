@@ -56,7 +56,7 @@ extern "C" void proofGenerator() {
 
   // Extract data from the parsed JSON
   uint64_t Class = commitmentJsonData["class"].get<uint64_t>();
-  std::string commitmentID = commitmentJsonData["commitment_id"].get<std::string>();
+  std::string commitmentID = commitmentJsonData["commitmentId"].get<std::string>();
   std::vector<uint64_t> rowA_x = commitmentJsonData["row_AHP_A"].get<std::vector<uint64_t>>();
   std::vector<uint64_t> colA_x = commitmentJsonData["col_AHP_A"].get<std::vector<uint64_t>>();
   std::vector<uint64_t> valA_x = commitmentJsonData["val_AHP_A"].get<std::vector<uint64_t>>();
@@ -168,7 +168,7 @@ extern "C" void proofGenerator() {
   // Measure the start time
   auto start_time = high_resolution_clock::now();
 
-  extern uint32_t z_array[];
+  extern uint64_t z_array[];
   
   vector<uint64_t> z;
   for(uint64_t i = 0; i < (1 + n_i + n_g); i++) {
@@ -799,12 +799,7 @@ extern "C" void proofGenerator() {
 
   ordered_json proof;
   proof.clear(); 
-  proof["commitment_id"] = commitmentID;
-  // proof["iot_developer_name"] = IoT_Manufacturer_Name;
-  // proof["iot_device_name"] = IoT_Device_Name;
-  // proof["device_hardware_version"] = Device_Hardware_Version;
-  // proof["firmware_version"] = Firmware_Version;
-  // proof["code_block"] = code_block;
+  proof["commitmentId"] = commitmentID;
   proof["class"] = Class;
   proof["P_AHP1"] = sigma1;
   proof["P_AHP2"] = w_hat_x;
@@ -845,7 +840,7 @@ extern "C" void proofGenerator() {
   // Print the time taken
   cout << "Time taken: " << duration.count() << " milliseconds" << endl;
 
-  std::string proofString = proof.dump();
+  std::string proofString = proof.dump(4);
   std::ofstream proofFile("data/proof.json");
   if (proofFile.is_open()) {
       proofFile << proofString;

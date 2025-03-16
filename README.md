@@ -45,7 +45,7 @@ In this step, you’ll add the IOT2050 device to your user account on an IoT ser
 
 4. **Clone the Repository:**  
    ```bash
-   git clone https://github.com/FidesInnova/zkiot-arm-siemens-iot2050-c.git
+   git clone https://github.com/TheArchitect2000/zkiot-arm-siemens-iot2050-c.git
    cd zkiot-arm-siemens-iot2050-c
    ```
 5. **Install the device:**
@@ -64,23 +64,26 @@ sudo apt update && sudo apt install -y g++ libmosquitto-dev libmosquittopp-dev
 - Edit the following items in `device_config.json` in the project root path:
 ```
 {
-  "class": 1,
-  "iot_developer_name": "MHT",
-  "iot_device_Type": "Siemens_IOT2050",
-  "device_hardware_version": "1.0",
-  "firmware_version": "1.7",
-  "code_block": [
-    19723,
-    19724
-  ]
+   "class": 1,
+   "deviceType": "Sensor",
+   "deviceIdType": "MAC",
+   "deviceModel": "Siemense ",
+   "manufacturer": "MHT",
+   "softwareVersion": "1.2",
+   "code_block": [
+      19723,
+      19724
+   ]
 }
 ```
 Update the following parameter:
 ```
-"iot_developer_name": Based on the Company Name
-"iot_device_Type": Your IoT device type
-"device_hardware_version"
-"firmware_version"
+"deviceType": Type of the device (e.g., Car, Sensor)
+"deviceIdType": Type of the device ID (e.g., 'MAC', 'VIN')
+"softwareVersion": Software/firmware version of the device (e.g., '1.0.0')
+"deviceModel": Model of the device (e.g., 'zk-MultiSensor', 'E-card')
+"manufacturer": Manufacturer of the device (e.g., 'Simense', 'Tesla')
+"softwareVersion": Software/firmware version of the device (e.g., '1.0.0')
 ```
 
 - The project root path has a sample program, `program.cpp`. The commitment will be generated for this program.
