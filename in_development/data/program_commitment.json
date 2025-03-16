@@ -1,5 +1,5 @@
 {
-    "commitmentId": "21cdb8785a3a1ff0cec2579135172473fbae186c2a974deb011ee2426676d04e",
+    "commitmentId": "aa04a71e30bb4ec561fa37405079bfd102053631ffd39c685658141da2b46ec5",
     "deviceType": "Sensor",
     "deviceIdType": "MAC",
     "deviceModel": "Siemense ",
@@ -74,5 +74,5 @@
     "Com_AHP7": 95085,
     "Com_AHP8": 450947,
     "curve": "bn128",
-    "polynomial_commitment": "KZG"
+    "polynomialCommitment": "KZG"
 }

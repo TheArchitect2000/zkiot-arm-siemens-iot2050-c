@@ -647,7 +647,7 @@ void commitmentGenerator() {
   commitment["Com_AHP7"] = Com7_AHP;
   commitment["Com_AHP8"] = Com8_AHP;
   commitment["curve"] = "bn128";
-  commitment["polynomial_commitment"] = "KZG";
+  commitment["polynomialCommitment"] = "KZG";
 
   // Serialize JSON object to a string
   std::string commitmentString = commitment.dump(4);
