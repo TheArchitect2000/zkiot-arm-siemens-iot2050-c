@@ -6,6 +6,10 @@
 # 🚀 Applying zk-IoT on Siemens SIMATIC IOT2050
 
 This guide explains how to integrate **zk-IoT** with the **Siemens SIMATIC IOT2050** using the **FidesInnova** platform. The process involves device registration, commitment generation, proof submission, and verification on the blockchain.
+## Verifiable Computing Steps
+<p align="center">
+  <img src="docs/images/Process1.png" />
+</p>
 
 ---
 
