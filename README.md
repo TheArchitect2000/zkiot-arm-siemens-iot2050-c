@@ -113,6 +113,12 @@ In this step, you should generate proofs by running the program on IOT2050 and s
 ```
 
 # 🌐 Step 4: Browsing the Commitment and Verifying the Proofs
+To verify the execution of the program, you have two options:
+#### **Local Verification**: Use the locally available `verifier` tool.
+```
+./verifier
+```
+#### **Fidesinnova Blockchain Explorer Verification**: Submit your proof on the blockchain, then use the Fidesinnova Blockchain Explorer to verify the submitted `proof.json`.
 
 1. **Access the FidesInnova Explorer:**  
    - Open the [**FidesInnova Blockchain Explorer**](https://explorer.fidesinnova.io) to view your submitted commitments and proofs.  
