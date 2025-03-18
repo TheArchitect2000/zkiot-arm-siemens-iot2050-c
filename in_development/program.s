@@ -11,7 +11,7 @@ main:
 // 16 "program.cpp" 1
 	mov x18, #25
 mov x17, #159
-mul x17, x7, x18
+mul x17, x17, x18
 add x17, x17, #28
 
 // 0 "" 2

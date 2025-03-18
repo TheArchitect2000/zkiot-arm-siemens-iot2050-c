@@ -3,7 +3,7 @@ x1             0xfffffffff6f8      281474976708344
 x2             0xfffffffff708      281474976708360
 x3             0xaaaaaaaa1f54      187649984438100
 x4             0x0                 0
-x5             0x383da576ecca3ab6  4052577169900714678
+x5             0x6cd6bee030be5927  7842665671212030247
 x6             0x0                 0
 x7             0xfffffffff438      281474976707640
 x8             0xfffff7e93e30      281474841001520
@@ -34,13 +34,13 @@ pc             0xaaaaaaaa1f60      0xaaaaaaaa1f60 <main+12>
 cpsr           0x60200000          [ EL=0 SS C Z ]
 fpsr           0x0                 0
 fpcr           0x0                 0
-=> 0xaaaaaaaa1f60 <main+12>:	mul	x17, x7, x18
+=> 0xaaaaaaaa1f60 <main+12>:	mul	x17, x17, x18
 x0             0x1                 1
 x1             0xfffffffff6f8      281474976708344
 x2             0xfffffffff708      281474976708360
 x3             0xaaaaaaaa1f54      187649984438100
 x4             0x0                 0
-x5             0x383da576ecca3ab6  4052577169900714678
+x5             0x6cd6bee030be5927  7842665671212030247
 x6             0x0                 0
 x7             0xfffffffff438      281474976707640
 x8             0xfffff7e93e30      281474841001520
@@ -52,7 +52,7 @@ x13            0x0                 0
 x14            0xfffff7f68118      281474841870616
 x15            0x0                 0
 x16            0x0                 0
-x17            0x18fffffffed978    7036874417691000
+x17            0xf87               3975
 x18            0x19                25
 x19            0xaaaaaaaaedb0      187649984490928
 x20            0x0                 0
@@ -78,7 +78,7 @@ x1             0xfffffffff6f8      281474976708344
 x2             0xfffffffff708      281474976708360
 x3             0xaaaaaaaa1f54      187649984438100
 x4             0x0                 0
-x5             0x383da576ecca3ab6  4052577169900714678
+x5             0x6cd6bee030be5927  7842665671212030247
 x6             0x0                 0
 x7             0xfffffffff438      281474976707640
 x8             0xfffff7e93e30      281474841001520
@@ -90,7 +90,7 @@ x13            0x0                 0
 x14            0xfffff7f68118      281474841870616
 x15            0x0                 0
 x16            0x0                 0
-x17            0x18fffffffed994    7036874417691028
+x17            0xfa3               4003
 x18            0x19                25
 x19            0xaaaaaaaaedb0      187649984490928
 x20            0x0                 0

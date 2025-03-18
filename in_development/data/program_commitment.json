@@ -1,5 +1,5 @@
 {
-    "commitmentId": "aa04a71e30bb4ec561fa37405079bfd102053631ffd39c685658141da2b46ec5",
+    "commitmentId": "8c031caed4985ccec5c94653bd95b804d99bd8e108371a9677cff5a2ebe312fc",
     "deviceType": "Sensor",
     "deviceIdType": "MAC",
     "deviceModel": "Siemense ",
@@ -17,16 +17,16 @@
         976702
     ],
     "col_AHP_A": [
-        646684,
-        72226,
-        1205414,
-        379034
+        860159,
+        285701,
+        1418889,
+        592509
     ],
     "val_AHP_A": [
-        797732,
-        553114,
-        213894,
-        458512
+        1502728,
+        1258110,
+        918890,
+        1163508
     ],
     "row_AHP_B": [
         502100,
@@ -65,8 +65,8 @@
         816594
     ],
     "Com_AHP0": 95085,
-    "Com_AHP1": 596857,
-    "Com_AHP2": 1560213,
+    "Com_AHP1": 1458512,
+    "Com_AHP2": 95992,
     "Com_AHP3": 1486087,
     "Com_AHP4": 472594,
     "Com_AHP5": 23750,

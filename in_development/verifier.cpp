@@ -107,6 +107,9 @@ void verifier() {
   uint64_t Com11_AHP_x = proofJsonData["Com_AHP11_x"].get<uint64_t>();
   uint64_t Com12_AHP_x = proofJsonData["Com_AHP12_x"].get<uint64_t>();
   uint64_t Com13_AHP_x = proofJsonData["Com_AHP13_x"].get<uint64_t>();
+  
+  uint64_t input_value = proofJsonData["input"].get<uint64_t>();
+  uint64_t output_value = proofJsonData["output"].get<uint64_t>();
   // uint64_t ComP_AHP_x = proofJsonData["ComP_AHP_x"].get<uint64_t>();
   // string curve = proofJsonData["curve"];
   // string protocol = proofJsonData["protocol"];
@@ -184,6 +187,10 @@ void verifier() {
   for (int64_t i = 1; i < n; i++) {
     H.push_back(Polynomial::power(w, i, p));
   }
+
+  uint64_t y_output = Polynomial::evaluatePolynomial(z_hatC, H[n-1], p);
+  // cout << "y = " << y_output << endl;
+
 
   vector<uint64_t> vH_x(n + 1, 0);
   vH_x[0] = p - 1;
@@ -301,7 +308,7 @@ void verifier() {
   uint64_t eq52 = Polynomial::e_func(p_17_AHP, eq52BufP2, g, p);
   cout << eq51 << " = " << eq52 << endl;
 
-  if (eq11 == eq12 && eq21 == eq22 && eq31 == eq32 && eq41 == eq42 && eq51 == eq52) {
+  if (eq11 == eq12 && eq21 == eq22 && eq31 == eq32 && eq41 == eq42 && eq51 == eq52 && output_value == y_output) {
     verify = true;
   }
 
