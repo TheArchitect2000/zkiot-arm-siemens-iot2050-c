@@ -35,9 +35,9 @@ g++ -std=gnu++17 -O2 fidesinnova.cpp -lmcl -lcrypto -o fidesinnova
 ```
 ## Usage
 ```php-template
-./fidesinnova -c <program_name.s>                    # → writes <program_name>.com
-./fidesinnova -p <program_name>                      # → reads <program_name>.com, writes <program_name>.prf
-./fidesinnova -v <program_name>.com <program_name>.prf
+sudo ./fidesinnova -c <program_name.s>                    # → writes <program_name>.com
+sudo ./fidesinnova -p <program_name>                      # → reads <program_name>.com, writes <program_name>.prf
+sudo ./fidesinnova -v <program_name>.com <program_name>.prf
 ```
 ### Notes
 * -c takes the assembly file produced by objdump -d <binary> > <program_name>.s
