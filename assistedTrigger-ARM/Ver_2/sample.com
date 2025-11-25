@@ -1,5 +1,0 @@
-{
-  "code_sha":"bf471e22d5aadbf3ace914f3b5a595f8c3d5210a601eff5337c3dff24da7a416",
-  "salt":"47e1914d57bb912cf1c684ed0dda1a8e",
-  "session_hash":"5869db897f6698b41c7349913461540d177de7e2d1757436ac06f4e39e6dcd13"
-}
