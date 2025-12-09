@@ -19,6 +19,40 @@
 <a href="https://discord.com/invite/NQdM6JGwcs" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
 <a href="https://twitter.com/FidesInnova" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 
+# zk-IoT Verifiable Computing
+This repository contains two versions of a Zero-Knowledge Proof (ZKP) system designed for IoT devices. Both versions allow verifiable execution on constrained hardware, but they differ in how the ZKP algorithm itself works.
+
+## Ver_1 — Original ZKP Algorithm
+**Integration modes supported:**
+**- Assisted Trigger**
+**- Embedded inside the device**
+
+### Description
+Ver_1 implements the **first-generation ZKP algorithm** used in this project.
+It supports both:
+- running ZKP logic fully inside the IoT device (embedded), or
+- offloading proof generation / submission to an external “assisted trigger” agent.
+
+### Characteristics
+- Designed for easy integration into existing firmware.
+- Works well on small devices (ARM, RISC-V).
+- Simple commitment + partial-proof generation model.
+
+## Ver_2 — New ZKP Algorithm
+**Integration mode currently available:**
+**- Assisted Trigger only (embedded version is planned)**
+
+### Description
+Ver_2 implements a **new and improved ZKP algorithm**, designed to be more modular, scalable, and optimized for complex IoT workloads.
+
+### Characteristics
+- Completely redesigned ZKP algorithm.
+- More efficient proof handling and improved structure.
+- Intended to run embedded in the future, but assisted trigger is used for now while the algorithm stabilizes.
+- Better suited for larger proofs and advanced applications.
+
+
+<!--
 This guide will teach you how to:
 - **Step A:** Create a commitment for a computation (e.g., C++ program, IoT firmware, or machine learning model) and submit it to the blockchain.
 - **Step B:** Execute the computation, generate a ZK proof to demonstrate the correctness of the execution, and submit it to the blockchain.
@@ -41,7 +75,7 @@ This guide will teach you how to:
 4. **Browse the Commitment and Verify the Proof:**  
    - Generate a zero-knowledge proof (ZKP) for the IOT2050 program.  
    - Submit the proof to the FidesInnova network for verification.  
-
+-->
 <!--
 ---
 

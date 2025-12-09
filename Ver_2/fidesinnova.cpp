@@ -30,6 +30,8 @@
 //
 // Build this tool:
 //   g++ -std=gnu++17 -O2 -g fidesinnova.cpp -lmcl -lcrypto -o fidesinnova
+//   or
+//   g++ -O2 -g -std=c++17 -I/usr/local/include fidesinnova.cpp -L/usr/local/lib -lmcl -lcrypto -lssl -o fidesinnova
 //
 // USAGE
 // -----
@@ -578,6 +580,15 @@ using G1 = mcl::bn::G1;
 using G2 = mcl::bn::G2;
 using GT = mcl::Fp12;
 
+inline void ensureInit()
+{
+    static bool inited = false;
+    if (!inited) {
+        mcl::bn::initPairing();
+        inited = true;
+    }
+}
+
 inline G1 genG1()
 {
     G1 P;
@@ -601,8 +612,7 @@ struct SRS {
     size_t size() const { return g1_powers.size(); }
 
     static SRS trustedSetup(size_t n){
-        static bool inited=false;
-        if(!inited){ mcl::bn::initPairing(); inited=true; }
+        KZG::ensureInit();
 
         // Secret tau (demo only)
         Fr tau; tau.setByCSPRNG();
@@ -625,35 +635,43 @@ struct SRS {
         return s;
     }
 
-    // --- serialization helpers (use iostream + mcl::IoSerialize)
+    // --- serialization helpers using mcl::{serialize,deserialize} ---
+
     template<class P>
     static void serializePoint(const P& Pnt, std::string& out){
-        std::ostringstream oss(std::ios::binary);
-        oss << mcl::IoSerialize << Pnt;   // compact binary form
-        out = oss.str();
+        // 256 bytes is plenty for BN254 G1/G2 serialized forms
+        char buf[256];
+        size_t n = Pnt.serialize(buf, sizeof(buf), mcl::IoSerialize);
+        if (n == 0) throw std::runtime_error("serializePoint: failed");
+        out.assign(buf, buf + n);
     }
 
     template<class P>
     static void deserializePoint(P& outP, const std::string& hex){
         // hex -> binary
-        std::string bin; bin.reserve(hex.size()/2);
-        for(size_t i=0;i+1<hex.size(); i+=2){
+        std::string bin;
+        bin.reserve(hex.size() / 2);
+        for (size_t i = 0; i + 1 < hex.size(); i += 2) {
             char t[3] = { hex[i], hex[i+1], 0 };
             bin.push_back(static_cast<char>(strtol(t, nullptr, 16)));
         }
-        std::istringstream iss(std::string(bin.data(), bin.size()), std::ios::binary);
-        iss >> mcl::IoSerialize >> outP;  // read compact binary form
-        if(!iss) throw std::runtime_error("bad point");
+        size_t n = outP.deserialize(bin.data(), bin.size(), mcl::IoSerialize);
+        if (n == 0) throw std::runtime_error("deserializePoint: failed");
     }
 
     static std::string bytesToHex(const std::string& s){
-        std::ostringstream o; o<<std::hex<<std::setfill('0');
-        for(unsigned char c: s) o<<std::setw(2)<<(unsigned)c;
+        std::ostringstream o;
+        o << std::hex << std::setfill('0');
+        for (unsigned char c : s) {
+            o << std::setw(2) << static_cast<unsigned>(c);
+        }
         return o.str();
     }
+
     template<class P>
     static std::string pointToHex(const P& Pnt){
-        std::string s; serializePoint(Pnt, s);
+        std::string s;
+        serializePoint(Pnt, s);
         return bytesToHex(s);
     }
 
@@ -667,9 +685,9 @@ struct SRS {
         }
         return o.str();
     }
+
     static SRS loadHex(const std::string& txt){
-        static bool inited=false;
-        if(!inited){ mcl::bn::initPairing(); inited=true; }
+        KZG::ensureInit();
 
         auto line=[&](const std::string& key)->std::string{
             auto p = txt.find(key);
@@ -677,7 +695,10 @@ struct SRS {
             auto nl = txt.find('\n', p);
             auto colon = txt.find(':', p);
             if(colon==std::string::npos) return "";
-            return txt.substr(colon+1, (nl==std::string::npos?txt.size():nl)-(colon+1));
+            return txt.substr(
+                colon+1,
+                (nl==std::string::npos ? txt.size() : nl) - (colon+1)
+            );
         };
         size_t n = (size_t)std::stoull(line("n:"));
 
@@ -685,7 +706,7 @@ struct SRS {
         deserializePoint(s.g2_1,  line("g2_1:"));
         deserializePoint(s.g2_tau, line("g2_tau:"));
         for(size_t i=0;i<n;i++){
-            std::string k = std::string("g1_")+std::to_string(i)+":";
+            std::string k = std::string("g1_") + std::to_string(i) + ":";
             deserializePoint(s.g1_powers[i], line(k));
         }
         return s;
@@ -694,15 +715,20 @@ struct SRS {
 
 
 inline G1 msm_g1(const std::vector<G1>& bases, const std::vector<Fr>& scalars){
-    if(bases.size()!=scalars.size()) throw std::runtime_error("msm len mismatch");
-    G1 acc; acc.clear();
-    for(size_t i=0;i<bases.size();++i){
-        if(scalars[i].isZero()) continue;
-        G1 tmp; mcl::bn::G1::mul(tmp, bases[i], scalars[i]);
+    if (bases.size() < scalars.size())
+        throw std::runtime_error("msm len mismatch (bases too short)");
+
+    G1 acc; 
+    acc.clear();
+    for (size_t i = 0; i < scalars.size(); ++i) {
+        if (scalars[i].isZero()) continue;
+        G1 tmp;
+        mcl::bn::G1::mul(tmp, bases[i], scalars[i]);
         mcl::bn::G1::add(acc, acc, tmp);
     }
     return acc;
 }
+
 
 inline G1 commit(const SRS& srs, const std::vector<Fr>& coeffs){
     if(coeffs.size() > srs.g1_powers.size()) throw std::runtime_error("poly degree exceeds SRS");
@@ -769,6 +795,7 @@ inline std::string frToHex(const Fr& x){
     return x.getStr(16);
 }
 inline Fr frFromHex(const std::string& h){
+    KZG::ensureInit();
     Fr x; x.setStr(h, 16);
     return x;
 }
@@ -779,26 +806,30 @@ inline G1 g1FromHex(const std::string& h){
 } // namespace KZG
 
 // --- Hash a row into Fr (SHA-256 -> reduce) ---
-static KZG::Fr hash_row_to_fr(uint64_t pc, const std::vector<uint8_t>& bytes, const std::string& asm_text){
+static KZG::Fr hash_row_to_fr(uint64_t pc,
+                              const std::vector<uint8_t>& bytes,
+                              const std::string& asm_text)
+{
+    KZG::ensureInit();  // make sure BN254 is initialized
+
     std::string t;
     t.reserve(8 + bytes.size() + asm_text.size() + 16);
-    for(int i=0;i<8;i++) t.push_back((char)((pc >> (8*i)) & 0xff));
+    for (int i = 0; i < 8; i++) {
+        t.push_back((char)((pc >> (8 * i)) & 0xff));
+    }
     t.append((const char*)bytes.data(), bytes.size());
     t.push_back((char)0x1f);
     t.append(asm_text);
-    std::string h = sha256_of_string(t); // hex(32 bytes)
 
-    // Convert hex->32 bytes
-    std::vector<uint8_t> b = parse_hex_bytes(h);
-    // Interpret as little-endian limbs into Fr (setArray takes uint64_t*)
-    uint64_t limbs[4] = {0,0,0,0};
-    for(int i=0;i<32;i++){
-        ((uint8_t*)limbs)[i] = b[i]; // little-endian fill
-    }
+    // We can optionally keep your SHA-256 to domain-separate:
+    std::string h = sha256_of_string(t); // hex string
+
     KZG::Fr x;
-    x.setArray(limbs, 4); // reduced mod r internally
+    // Use h (hex string) as the input to Fr::setHashOf – no limb juggling.
+    x.setHashOf(h.data(), h.size());
     return x;
 }
+
 
 // -------------------------------- COMMIT --------------------------------------
 static int cmd_commit(const std::string& asm_path){
@@ -889,11 +920,21 @@ static int cmd_prove(const std::string& exe, int steps, const std::string& domai
         std::string Cser; KZG::SRS::serializePoint(C, Cser);
         fs.append(Cser);
     }
-    std::string hz = sha256_of_string(fs);
-    std::vector<uint8_t> zb = parse_hex_bytes(hz);
-    uint64_t limbs[4] = {0,0,0,0};
-    for(int i=0;i<32;i++) ((uint8_t*)limbs)[i] = zb[i];
-    KZG::Fr z; z.setArray(limbs, 4);
+    // std::string hz = sha256_of_string(fs);
+    // std::vector<uint8_t> zb = parse_hex_bytes(hz);
+    // uint64_t limbs[4] = {0,0,0,0};
+    // for(int i=0;i<32;i++) ((uint8_t*)limbs)[i] = zb[i];
+    // KZG::Fr z; z.setArray(limbs, 4);
+
+    // std::string hz = sha256_of_string(fs);  // hex string of SHA-256
+    // KZG::Fr z;
+    // z.setHashOf(hz.data(), hz.size());      // hash → Fr with proper reduction
+
+    std::string hz_hex = sha256_of_string(fs);
+    std::vector<uint8_t> hz = parse_hex_bytes(hz_hex);
+    KZG::Fr z;
+    z.setHashOf(hz.data(), hz.size());
+
 
     // Open at z
     auto op = KZG::open(srs, coeffs, z);
