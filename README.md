@@ -22,10 +22,10 @@
 # zk-IoT Verifiable Computing
 This repository contains two versions of a Zero-Knowledge Proof (ZKP) system designed for IoT devices. Both versions allow verifiable execution on constrained hardware, but they differ in how the ZKP algorithm itself works.
 
-## Ver_1 — Original ZKP Algorithm
+## Ver_1 — First gen ZKP Algorithm
 **Integration modes supported:**
-**- Assisted Trigger**
-**- Embedded inside the device**
+- **Assisted Trigger**
+- **Embedded inside the device**
 
 ### Description
 Ver_1 implements the **first-generation ZKP algorithm** used in this project.
@@ -40,7 +40,7 @@ It supports both:
 
 ## Ver_2 — New ZKP Algorithm
 **Integration mode currently available:**
-**- Assisted Trigger only (embedded version is planned)**
+- **Assisted Trigger only (embedded version is planned)**
 
 ### Description
 Ver_2 implements a **new and improved ZKP algorithm**, designed to be more modular, scalable, and optimized for complex IoT workloads.
